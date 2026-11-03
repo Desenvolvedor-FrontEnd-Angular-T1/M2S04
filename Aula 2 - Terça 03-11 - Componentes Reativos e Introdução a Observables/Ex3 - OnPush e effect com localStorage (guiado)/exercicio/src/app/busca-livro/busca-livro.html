@@ -1,0 +1,5 @@
+<label>
+  Buscar por título:
+  <!-- [value] mostra o termo atual | (input) dispara a cada tecla -->
+  <input type="search" [value]="termo()" (input)="atualizar($event)" placeholder="Ex.: Angular">
+</label>

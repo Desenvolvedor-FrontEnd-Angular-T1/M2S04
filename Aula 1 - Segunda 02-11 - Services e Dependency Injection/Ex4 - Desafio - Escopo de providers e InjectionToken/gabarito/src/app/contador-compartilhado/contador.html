@@ -1,0 +1,6 @@
+<!-- O id do service prova quem é quem: ids iguais = mesma instância | ids diferentes = instâncias separadas -->
+<div class="contador">
+  <strong>{{ titulo }}</strong>
+  <span>instância #{{ service.id }} → valor: {{ service.valor() }}</span>
+  <button (click)="service.incrementar()">+1</button>
+</div>

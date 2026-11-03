@@ -1,0 +1,15 @@
+<main class="pagina">
+  <h1>{{ titulo }}</h1>
+  <app-resumo-biblioteca />
+  <!-- [( )] = two-way binding com model(): o pai escreve e lê o mesmo signal -->
+  <!-- TODO 10: ligue com two-way: [(termo)]="termoBusca" -->
+  <app-busca-livro />
+  <section class="grade">
+    @for (livro of livrosFiltrados(); track livro.id) {
+      <!-- agora [livro] alimenta um input() signal do filho -->
+      <app-card-livro [livro]="livro" (emprestar)="emprestar($event)" (devolver)="devolver($event)" />
+    } @empty {
+      <p>Nenhum livro encontrado para "{{ termoBusca() }}".</p>
+    }
+  </section>
+</main>

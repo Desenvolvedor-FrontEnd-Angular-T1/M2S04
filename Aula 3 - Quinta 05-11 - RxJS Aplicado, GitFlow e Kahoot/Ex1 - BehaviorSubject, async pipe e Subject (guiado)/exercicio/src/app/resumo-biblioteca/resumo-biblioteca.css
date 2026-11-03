@@ -1,0 +1,5 @@
+/* resumo-biblioteca.css */
+.resumo { display: flex; gap: 12px; margin-bottom: 16px; }
+.resumo div { flex: 1; text-align: center; border: 2px solid #78c043; border-radius: 8px; padding: 10px; }
+.resumo strong { display: block; font-size: 28px; color: #2e7d32; }
+.resumo span { font-size: 12px; color: #546e7a; }

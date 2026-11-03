@@ -1,0 +1,14 @@
+<main class="pagina">
+  <h1>{{ titulo }}</h1>
+  <!-- NOVO: o resumo não recebe dados do App; ele conversa direto com o service -->
+  <app-resumo-biblioteca />
+  <section class="grade">
+    <!-- livros() com parênteses: LÊ o valor atual do signal. O Angular rastreia essa leitura e redesenha quando muda. -->
+    @for (livro of livros(); track livro.id) {
+      <!-- [livro] envia o dado ao filho | (emprestar)/(devolver) escutam o que o filho emite; $event = o id emitido -->
+      <app-card-livro [livro]="livro" (emprestar)="emprestar($event)" (devolver)="devolver($event)" />
+    }
+  </section>
+  <!-- NOVO: histórico alimentado pelo HistoricoService -->
+  <app-historico />
+</main>

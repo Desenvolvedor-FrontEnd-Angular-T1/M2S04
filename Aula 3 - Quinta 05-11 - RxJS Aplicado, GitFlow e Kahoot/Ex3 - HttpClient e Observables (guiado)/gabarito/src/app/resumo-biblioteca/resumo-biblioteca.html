@@ -1,0 +1,9 @@
+<!-- "totais$ | async" assina o Observable, entrega o último valor e CANCELA a assinatura sozinho ao destruir o componente. -->
+<!-- "as t" guarda o valor em t para usarmos várias vezes. Antes do 1º valor, t é null e nada aparece. -->
+@if (totais$ | async; as t) {
+  <section class="resumo">
+    <div><strong>{{ t.total }}</strong><span>livros</span></div>
+    <div><strong>{{ t.disponiveis }}</strong><span>disponíveis</span></div>
+    <div><strong>{{ t.emprestados }}</strong><span>emprestados</span></div>
+  </section>
+}

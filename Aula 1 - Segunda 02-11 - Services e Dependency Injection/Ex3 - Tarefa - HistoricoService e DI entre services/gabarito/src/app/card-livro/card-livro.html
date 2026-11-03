@@ -1,0 +1,16 @@
+<!-- <article> = bloco semântico (semana 11). [class.indisponivel] liga/desliga a classe CSS conforme o livro -->
+<article class="card" [class.indisponivel]="!livro.disponivel">
+  <!-- [src] e [alt] = binding de propriedade (semana 3) -->
+  <img [src]="livro.imagem" [alt]="'Capa do livro ' + livro.titulo">
+  <!-- {{ }} = interpolação: mostra o valor da propriedade do componente -->
+  <h3>{{ livro.titulo }}</h3>
+  <p>{{ livro.autor }} · {{ livro.categoria }}</p>
+  <span class="selo">{{ livro.disponivel ? 'Disponível' : 'Emprestado' }}</span>
+  <!-- @if / @else = controle de fluxo do template: mostra UM dos dois botões -->
+  @if (livro.disponivel) {
+    <!-- (click) = binding de evento: ao clicar, o filho AVISA o pai emitindo o id do livro -->
+    <button (click)="emprestar.emit(livro.id)">Emprestar</button>
+  } @else {
+    <button (click)="devolver.emit(livro.id)">Devolver</button>
+  }
+</article>

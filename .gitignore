@@ -1,0 +1,16 @@
+# Dependências e artefatos de build (gerados por npm / Angular CLI)
+node_modules/
+.angular/
+dist/
+out-tsc/
+
+# Configurações locais e segredos: nunca versionar
+.npmrc.local
+.env
+*.log
+
+# Arquivos de sistema e editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/

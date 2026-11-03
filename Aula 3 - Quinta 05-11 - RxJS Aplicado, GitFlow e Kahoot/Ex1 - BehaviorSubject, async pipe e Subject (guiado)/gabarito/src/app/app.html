@@ -1,0 +1,12 @@
+<main class="pagina">
+  <h1>{{ titulo }}</h1>
+  <app-resumo-biblioteca />
+  <section class="grade">
+    <!-- (livros$ | async) devolve Livro[] | null; o @for aceita null (não renderiza nada) -->
+    @for (livro of livros$ | async; track livro.id) {
+      <app-card-livro [livro]="livro" (emprestar)="emprestar($event)" (devolver)="devolver($event)" />
+    }
+  </section>
+  <!-- O Toast escuta o NotificacaoService sozinho: ninguém precisa passar mensagem por @Input -->
+  <app-toast />
+</main>

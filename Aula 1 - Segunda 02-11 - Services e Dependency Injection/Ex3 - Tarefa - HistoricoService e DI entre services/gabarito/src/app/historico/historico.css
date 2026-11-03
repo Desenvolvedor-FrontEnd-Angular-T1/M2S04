@@ -1,0 +1,5 @@
+/* historico.css */
+.historico { margin-top: 24px; border-top: 2px solid #cfd8dc; padding-top: 8px; }
+.historico h2 { font-size: 18px; }
+.historico li { font-size: 14px; margin-bottom: 4px; }
+.historico button { margin-left: 8px; }

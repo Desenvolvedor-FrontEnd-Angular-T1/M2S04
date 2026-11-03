@@ -1,0 +1,14 @@
+// resumo-biblioteca.ts - um SEGUNDO componente que lê o MESMO service.
+import { Component, inject } from '@angular/core';
+import { LivroService } from '../services/livro-service';
+
+@Component({
+  selector: 'app-resumo-biblioteca',
+  templateUrl: './resumo-biblioteca.html',
+  styleUrl: './resumo-biblioteca.css',
+})
+export class ResumoBiblioteca {
+  // O Angular entrega a MESMA instância que o App recebeu (singleton). Ninguém passou nada por @Input!
+  // "protected" permite usar no template, mas não de fora da classe.
+  protected service = inject(LivroService);
+}

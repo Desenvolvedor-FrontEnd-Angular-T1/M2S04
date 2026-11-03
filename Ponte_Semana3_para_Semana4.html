@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Da Semana 3 à Semana 4 - Ponte de Conteúdo</title>
+<style>
+  :root{
+    --navy:#1b4f72; --navy-dark:#123049; --zebra:#eef4f8;
+    --note-bg:#eaf2f8; --warn-bg:#fff3cd; --code-bg:#1e1e1e;
+    --verde:#2e7d32; --verde-dark:#1b5e20;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:#fff;font-family:Arial,Helvetica,sans-serif;color:#263238;line-height:1.55;font-size:13.5px}
+  .wrap{max-width:980px;margin:auto;padding:28px 34px}
+  h1{color:var(--navy);text-align:center;font-size:27px;margin-bottom:4px}
+  h1 + .subtitle{text-align:center;color:#37474f;font-size:15.5px;font-weight:bold;margin-top:0;margin-bottom:18px}
+  .meta{font-size:12.5px;color:#455a64;border-bottom:1px solid #cfd8dc;padding-bottom:16px;margin-bottom:16px}
+  .meta b{color:#263238}
+  h2.encontro,h2.section,h2.conexao,h2.aula{background:var(--navy);color:#fff;padding:10px 16px;border-radius:4px;font-size:17px;margin-top:34px;margin-bottom:14px;letter-spacing:.2px}
+  h3.bloco{color:var(--navy-dark);border-bottom:2px solid var(--navy);padding-bottom:4px;font-size:15px;margin-top:26px}
+  h3.dia{background:var(--navy-dark);color:#fff;padding:8px 14px;border-radius:4px;font-size:14.5px;margin-top:22px;margin-bottom:10px}
+  h3.questao{color:var(--navy-dark);font-size:14px;margin-top:22px;margin-bottom:2px}
+  .tempo{color:#607d8b;font-weight:normal;font-size:12.5px}
+  .enunciado{font-weight:bold;margin:4px 0 8px}
+  .obj-encontro,.objetivo-encontro{background:var(--zebra);border-left:4px solid var(--navy);padding:10px 14px;margin:14px 0 20px;font-size:13px}
+  .fala{background:var(--zebra);border-radius:5px;padding:10px 14px;margin:10px 0}
+  .fala b.label{color:var(--navy);display:block;margin-bottom:3px}
+  pre{background:var(--code-bg);color:#f8f8f2;padding:12px 14px;border-radius:6px;overflow:auto;font-size:11.8px;line-height:1.5;margin:10px 0;white-space:pre-wrap}
+  code{font-family:Consolas,Menlo,monospace}
+  :not(pre) > code{background:#eef4f8;color:var(--navy);padding:1px 5px;border-radius:3px;font-size:12px}
+  .pergunta{background:#f1f8f4;border-left:4px solid #2a9d8f;padding:9px 14px;margin:10px 0;font-size:13px}
+  .pergunta b{color:#1d7a6e}
+  .nota,.dica,.fio{background:var(--note-bg);border-left:4px solid var(--navy);border-radius:4px;padding:10px 14px;margin:12px 0;font-size:12.8px}
+  .nota .titulo,.dica .titulo,.fio .titulo{font-weight:bold;color:var(--navy);display:block;margin-bottom:3px}
+  .atencao,.apoio,.observacao{background:var(--warn-bg);border-left:4px solid #e08e00;border-radius:4px;padding:10px 14px;margin:12px 0;font-size:12.8px}
+  .atencao .titulo,.observacao .titulo{font-weight:bold;color:#8a5c00;display:block;margin-bottom:3px}
+  .apoio b{color:#8a5c00}
+  .realizado,.fechamento{background:#eef7f2;border-left:4px solid #2a9d8f;border-radius:4px;padding:10px 14px;margin:12px 0;font-size:12.8px}
+  .realizado .titulo{font-weight:bold;color:#1d7a6e;display:block;margin-bottom:3px}
+  .fechamento{margin:20px 0 8px;font-size:13px}
+  .fechamento b{color:#1d7a6e}
+  .erro-comum{background:#fdecea;border-left:4px solid #d9534f;border-radius:4px;padding:10px 14px;margin:10px 0 22px;font-size:12.8px}
+  .erro-comum .titulo,.erro-comum b:first-child{font-weight:bold;color:#a83a32}
+  .erro-comum .titulo{display:block;margin-bottom:3px}
+  .checklist-final{background:var(--navy);color:#fff;padding:11px 16px;border-radius:4px;font-size:16px;margin-top:36px}
+  table{width:100%;border-collapse:collapse;margin:10px 0 20px;font-size:12.6px}
+  th{background:var(--navy);color:#fff;text-align:left;padding:7px 10px}
+  td{padding:7px 10px;border-bottom:1px solid #e3e9ec;vertical-align:top}
+  tr:nth-child(even) td{background:var(--zebra)}
+  td.correta{font-weight:bold;color:#1d7a6e}
+  .slides{white-space:nowrap;color:var(--navy);font-weight:bold}
+  .comentario{font-size:12.5px;color:#455a64;margin:0 0 18px}
+  .comentario b{color:#263238}
+  .conferencia{background:var(--zebra);border-left:4px solid var(--navy);border-radius:4px;padding:12px 16px;margin-top:16px;font-size:12.8px}
+  .conferencia li{margin-bottom:6px}
+  .comparacao{display:flex;gap:16px;margin:12px 0;flex-wrap:wrap}
+  .comparacao .lado{flex:1;min-width:280px}
+  .rotulo-antes,.rotulo-depois{display:inline-block;color:#fff;font-size:11px;font-weight:bold;padding:3px 10px;border-radius:3px 3px 0 0}
+  .rotulo-antes{background:#d9534f}.rotulo-depois{background:#2a9d8f}
+  .caixa-antes{border:2px solid #d9534f;border-top:none;border-radius:0 0 6px 6px}
+  .caixa-depois{border:2px solid #2a9d8f;border-top:none;border-radius:0 0 6px 6px}
+  .caixa-antes pre,.caixa-depois pre{margin:0;border-radius:0}
+  .checklist li{list-style:none;margin-bottom:7px;padding-left:24px;position:relative;font-size:13px}
+  .checklist li::before{content:"✓";position:absolute;left:0;color:#2a9d8f;font-weight:bold}
+  .video-item{border:1px solid #e3e9ec;border-radius:6px;padding:10px 14px;margin-bottom:10px}
+  .video-item .titulo-video{font-weight:bold;color:var(--navy-dark);display:block;margin-bottom:2px}
+  .video-item .canal{color:#607d8b;font-size:12px}
+  .video-item .desc{margin:4px 0 0;font-size:12.6px}
+  .paleta{display:flex;flex-wrap:wrap;gap:10px;margin:10px 0 18px}
+  .cor{width:140px;border:1px solid #cfd8dc;border-radius:8px;overflow:hidden;font-size:11.5px}
+  .cor .amostra{height:46px}
+  .cor .info{padding:6px 8px}
+  a{color:var(--navy)}
+  ul{margin-top:6px}
+  li{margin-bottom:5px}
+  hr{border:none;border-top:1px solid #cfd8dc;margin:26px 0}
+  .pagebreak{break-before:page}
+  footer{margin-top:40px;padding-top:14px;border-top:1px solid #e3e9ec;color:#78909c;font-size:11px;text-align:center}
+  @media print{ .wrap{padding:0} a{color:var(--navy) !important;text-decoration:underline} }
+
+  .pausa{background:#eef7f2;border-left:4px solid #2a9d8f;border-radius:4px;padding:10px 14px;margin:12px 0;font-size:12.8px}
+  .pausa .titulo{font-weight:bold;color:#1d7a6e;display:block;margin-bottom:3px}
+  .tela{background:#fff;border:1px dashed #90a4ae;border-radius:4px;padding:8px 14px;margin:10px 0;font-size:12.8px}
+  .tela .titulo{font-weight:bold;color:#455a64;display:block;margin-bottom:3px}
+  .minuto{display:inline-block;background:var(--navy);color:#fff;font-size:11.5px;font-weight:bold;padding:2px 9px;border-radius:3px;margin-right:6px}
+  table.compacta td,table.compacta th{padding:5px 8px;font-size:12px}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<h1>Da Semana 3 à Semana 4</h1>
+  <p class="subtitle">Conectando componentes, bindings e @Input/@Output ao Service, à Injeção de Dependência, aos Signals, aos Observables/RxJS e ao GitFlow</p>
+  <p class="meta">Desenvolvimento Front-End [Angular] T1 | Módulo 2 | Semana 4 | Este material não traz conteúdo novo - ele mostra, ponto a ponto, como o que você já praticou (Módulo 1 e a <b>Semana 3</b> de Angular) é a <b>base literal</b> do que vamos fazer na Semana 4. A ideia é simples: <b>nada aqui é assunto desconhecido, é o mesmo conhecimento crescendo.</b></p>
+
+<h3 class="bloco" style="border:none;margin-top:0">Como ler este material</h3><p>Cada seção segue o mesmo formato: primeiro, <b>o que você já sabe</b> (com o código como ele apareceu na Semana 3); depois, <b>o que a Semana 4 acrescenta</b>; por fim, uma comparação lado a lado entre a versão "de antes" e a "de agora" do mesmo problema.</p><div class="fio"><span class="titulo">O fio condutor: o projeto que cresceu</span>Na Semana 3 você construiu a <b>biblioteca-web</b>: cards de livros com <code>@for</code>, botões Emprestar/Devolver e comunicação <code>@Input/@Output</code>. Agora o mesmo projeto ganha <b>arquitetura</b>. O problema-âncora é o de todo app que cresce: &lt;i&gt;onde o dado mora, como a tela reage quando ele muda, como tratar o que chega ao longo do tempo e como o time trabalha junto no mesmo código?&lt;/i&gt;</div><table><tr><th>Semana</th><th>O que você construiu</th><th>Ferramenta usada</th></tr><tr><td>Módulo 1</td><td>JavaScript no navegador e no Node: <code>localStorage</code>, <code>fetch</code>, <code>async/await</code>, timers, npm</td><td><code>JSON.stringify/parse</code>, <code>fetch</code>, <code>setInterval</code></td></tr><tr><td>03</td><td>Primeiro app Angular: componentes, template e comunicação pai-filho</td><td><code>@for/@if/@switch</code>, bindings, <code>@Input/@Output</code></td></tr><tr><td>04</td><td>A mesma biblioteca-web com service, estado reativo, busca em fluxo, HTTP e Git em equipe</td><td><b>Assunto desta semana:</b> services/DI, signals, Observables/RxJS, GitFlow</td></tr></table><h2 class="conexao pagebreak">CONEXÃO 1 - Do componente que faz tudo ao Service</h2><h3 class="bloco">O que você já sabe (Semana 3 e Módulo 1)</h3><p>No <code>app.ts</code> da Semana 3 a lista <code>livrosCadastrados</code> e as regras de emprestar/devolver moravam <b>dentro do componente</b>. Funcionava bem, enquanto havia uma única tela.</p><h3 class="bloco">O que a Semana 4 acrescenta</h3><ul><li><b>Service:</b> a classe que guarda dados e regras, fora da tela (<code>@Service()</code> no Angular 22; <code>@Injectable({ providedIn: 'root' })</code> nas versões anteriores).</li><li><b>Injeção de Dependência:</b> em vez de <code>new</code>, o componente <b>pede</b> o service com <code>inject()</code> e o Angular entrega <b>a mesma instância</b> (singleton).</li><li><b>Resultado:</b> dois componentes diferentes compartilham o mesmo dado sem <code>@Input/@Output</code> entre eles.</li></ul><h3 class="bloco">Comparando o código: o mesmo problema, antes e depois</h3><div class="comparacao"><div class="lado"><span class="rotulo-antes">SEMANA 3 - tudo no componente</span><div class="caixa-antes"><pre><code>export class App {
+  livros: Livro[] = [ /* ... */ ];
+  emprestar(id: number) {
+    const l = this.livros.find(x =&gt; x.id === id);
+    if (l) l.disponivel = false;
+  }
+}</code></pre></div></div><div class="lado"><span class="rotulo-depois">SEMANA 4 - dados e regras no service</span><div class="caixa-depois"><pre><code>// livro-service.ts
+@Service()
+export class LivroService {
+  private _livros = signal&lt;Livro[]&gt;([ /* ... */ ]);
+  readonly livros = this._livros.asReadonly();
+  emprestar(id: number) { /* update + map */ }
+}
+// app.ts
+export class App {
+  private service = inject(LivroService);
+  livros = this.service.livros;   // template: livros()
+}</code></pre></div></div></div><div class="observacao"><span class="titulo">O que realmente mudou?</span>A lógica é a mesma. Muda <b>onde ela mora</b> (service, reaproveitável) e <b>quem cria o objeto</b> (o Angular, não você).</div><h2 class="conexao pagebreak">CONEXÃO 2 - Da interpolação e do binding aos signals</h2><h3 class="bloco">O que você já sabe (Semana 3 e Módulo 1)</h3><p>Você usou <code>{{ }}</code>, <code>[propriedade]</code> e <code>(evento)</code> para ligar a classe ao template. O Angular "descobria" o que mudou verificando a tela depois de cada evento.</p><h3 class="bloco">O que a Semana 4 acrescenta</h3><ul><li><b>Signal:</b> um valor que <b>avisa quem o lê</b> quando muda (como a célula de uma planilha).</li><li><b><code>computed</code>:</b> valor calculado a partir de outros signals (a fórmula).</li><li><b><code>effect</code>:</b> efeito colateral quando algo muda (salvar, logar).</li><li>No template, signals são lidos <b>com parênteses</b>: <code>livros()</code>.</li></ul><h3 class="bloco">Comparando o código: o mesmo problema, antes e depois</h3><div class="comparacao"><div class="lado"><span class="rotulo-antes">SEMANA 3</span><div class="caixa-antes"><pre><code>livros: Livro[] = [...];
+// template
+@for (livro of livros; track livro.id) { ... }
+// total recalculado a cada verificação
+total() { return this.livros.length; }</code></pre></div></div><div class="lado"><span class="rotulo-depois">SEMANA 4</span><div class="caixa-depois"><pre><code>livros = signal&lt;Livro[]&gt;([...]);
+total = computed(() =&gt; this.livros().length);
+// template
+@for (livro of livros(); track livro.id) { ... }</code></pre></div></div></div><div class="observacao"><span class="titulo">O que realmente mudou?</span>O template continua igual no <b>espírito</b>. A diferença é que agora a dependência é <b>explícita</b>: o Angular sabe exatamente o que depende de <code>livros</code>.</div><h2 class="conexao pagebreak">CONEXÃO 3 - Do @Input/@Output e do two-way binding ao input(), output() e model()</h2><h3 class="bloco">O que você já sabe (Semana 3 e Módulo 1)</h3><p>Na Semana 3 o pai enviava dados com <code>@Input()</code> e o filho avisava com <code>@Output() + EventEmitter</code>. O two-way combinava <code>[ ]</code> e <code>( )</code>.</p><h3 class="bloco">O que a Semana 4 acrescenta</h3><ul><li><code>input()</code> e <code>input.required()</code> entregam o valor <b>como signal</b>.</li><li><code>output()</code> substitui <code>@Output() + new EventEmitter</code>.</li><li><code>model()</code> cria <b>entrada + saída</b> em um só signal: <code>[(termo)]="busca"</code>.</li><li>Os decorators <b>continuam funcionando</b>; a API nova se integra com <code>computed</code>.</li></ul><h3 class="bloco">Comparando o código: o mesmo problema, antes e depois</h3><div class="comparacao"><div class="lado"><span class="rotulo-antes">SEMANA 3 - decorators</span><div class="caixa-antes"><pre><code>@Input({ required: true }) livro!: Livro;
+@Output() emprestar = new EventEmitter&lt;number&gt;();
+// template: {{ livro.titulo }}</code></pre></div></div><div class="lado"><span class="rotulo-depois">SEMANA 4 - API de signals</span><div class="caixa-depois"><pre><code>livro = input.required&lt;Livro&gt;();
+emprestar = output&lt;number&gt;();
+// template: {{ livro().titulo }}</code></pre></div></div></div><div class="observacao"><span class="titulo">O que realmente mudou?</span>O <b>pai não muda</b> (<code>[livro]="x"</code> e <code>(emprestar)="f($event)"</code>). Só o filho troca a forma de declarar.</div><h2 class="conexao pagebreak">CONEXÃO 4 - Do localStorage, do fetch e dos timers aos Observables</h2><h3 class="bloco">O que você já sabe (Semana 3 e Módulo 1)</h3><p>No Módulo 1 você usou <code>fetch</code> com <code>await</code> (uma resposta, uma vez), <code>setInterval</code> (algo repetido no tempo) e <code>localStorage</code> com <code>JSON.stringify/parse</code>. Também aprendeu a <b>limpar</b> timers com <code>clearInterval</code>.</p><h3 class="bloco">O que a Semana 4 acrescenta</h3><ul><li><b>Observable:</b> uma sequência de valores <b>ao longo do tempo</b>; só executa com <code>subscribe</code>.</li><li><code>HttpClient</code> devolve Observables, com <code>retry</code>, <code>catchError</code>, <code>finalize</code>.</li><li><code>interval(1000)</code> é o <code>setInterval</code> com operadores e cancelamento (<code>unsubscribe</code>).</li><li><code>effect</code> + <code>localStorage</code> mantém o estado salvo <b>sozinho</b> a cada mudança.</li></ul><h3 class="bloco">Comparando o código: o mesmo problema, antes e depois</h3><div class="comparacao"><div class="lado"><span class="rotulo-antes">MÓDULO 1 - timers e fetch</span><div class="caixa-antes"><pre><code>const id = setInterval(() =&gt; console.log('tick'), 1000);
+// ...
+clearInterval(id);   // limpar à mão
+const r = await fetch('livros.json');
+const livros = await r.json();</code></pre></div></div><div class="lado"><span class="rotulo-depois">SEMANA 4 - Observables</span><div class="caixa-depois"><pre><code>const sub = interval(1000).subscribe(() =&gt; console.log('tick'));
+// ...
+sub.unsubscribe();   // ou take(5) / takeUntilDestroyed()
+this.http.get&lt;Livro[]&gt;('livros.json')
+  .pipe(retry(2), catchError(() =&gt; of([])))
+  .subscribe(l =&gt; this.livros = l);</code></pre></div></div></div><div class="observacao"><span class="titulo">O que realmente mudou?</span>O raciocínio ("agendar, receber, limpar") é o mesmo. O RxJS dá <b>nomes, operadores e cancelamento</b> para o que você já fazia à mão.</div><h2 class="conexao pagebreak">CONEXÃO 5 - Do git add/commit ao fluxo de equipe (GitFlow)</h2><h3 class="bloco">O que você já sabe (Semana 3 e Módulo 1)</h3><p>Se você já usou <code>git add</code>, <code>git commit</code> e <code>git push</code> sozinho, sabe guardar versões do seu código. Em equipe, o desafio muda: <b>duas pessoas no mesmo arquivo</b>.</p><h3 class="bloco">O que a Semana 4 acrescenta</h3><ul><li><b>Branches</b> com função: <code>main</code>, <code>develop</code>, <code>feature/*</code>, <code>release/*</code>, <code>hotfix/*</code>.</li><li><b>Pull Request</b>: o time revisa antes de aceitar.</li><li><b>Conflito</b> de merge: normal; você escolhe o resultado final.</li><li><b>Conventional Commits</b> e <b>tags SemVer</b> (<code>v1.0.0</code>) - o mesmo <code>MAIOR.MENOR.CORREÇÃO</code> do <code>^4.1.2</code> do npm.</li></ul><h3 class="bloco">Comparando o código: o mesmo problema, antes e depois</h3><div class="comparacao"><div class="lado"><span class="rotulo-antes">SOZINHO</span><div class="caixa-antes"><pre><code>git add .
+git commit -m "mudei coisas"
+git push origin main</code></pre></div></div><div class="lado"><span class="rotulo-depois">EM EQUIPE</span><div class="caixa-depois"><pre><code>git switch -c feature/busca develop
+git commit -m "feat(busca): filtra por categoria"
+git push -u origin feature/busca
+# abrir Pull Request para develop -&gt; revisão -&gt; merge</code></pre></div></div></div><div class="observacao"><span class="titulo">O que realmente mudou?</span>Os comandos são os mesmos; muda o <b>combinado do time</b>: onde se trabalha, como se revisa e como se versiona.</div><h2 class="conexao">Checklist: você já está pronto para a Semana 4 se...</h2><ul class=checklist><li>Tem o projeto <b>biblioteca-web</b> da Semana 3 funcionando (ou usará a pasta <code>Ex0 - Base</code>).</li><li>Sabe usar <code>@for</code>, <code>@if</code>, <code>[propriedade]</code>, <code>(evento)</code> e <code>{{ }}</code>.</li><li>Lembra de <code>@Input/@Output</code> e de como o pai conversa com o filho.</li><li>Sabe rodar <code>ng serve</code>, <code>ng generate</code> e ler uma mensagem de erro inteira.</li><li>Lembra que <code>localStorage</code> só guarda texto (<code>JSON.stringify/parse</code>) e o que <code>fetch</code> e <code>async/await</code> faziam.</li><li>Tem conta no <b>GitHub</b> e o <b>Git</b> instalado (<code>git --version</code>).</li><li>Tem Node compatível com o Angular 22 (<code>node --version</code> deve ser ^22.22.3 ou mais novo; confira <code>ng version</code>).</li></ul><p>Se todos esses pontos fazem sentido, a Semana 4 não apresenta nada desconhecido - ela dá nome, comando e ferramenta profissional (service, signals, RxJS, GitFlow) para instintos que você já desenvolveu.</p>
+
+  <footer>
+    Desenvolvimento Front-End [Angular] T1 - SENAI/SC - Material de conexão Semana 3 -> Semana 4<br>
+    Professor Lisandro Faria Pinheiro
+  </footer>
+
+</div>
+</body>
+</html>

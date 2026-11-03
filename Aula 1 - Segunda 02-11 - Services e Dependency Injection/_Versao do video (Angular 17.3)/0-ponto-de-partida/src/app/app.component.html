@@ -1,0 +1,10 @@
+<main class="pagina">
+  <h1>{{ titulo }}</h1>
+  <section class="grade">
+    <!-- @for percorre a lista; track livro.id ajuda o Angular a reaproveitar o DOM de cada card -->
+    @for (livro of livros; track livro.id) {
+      <!-- [livro] envia o dado ao filho | (emprestar)/(devolver) escutam o que o filho emite; $event = o id emitido -->
+      <app-card-livro [livro]="livro" (emprestar)="emprestar($event)" (devolver)="devolver($event)" />
+    }
+  </section>
+</main>

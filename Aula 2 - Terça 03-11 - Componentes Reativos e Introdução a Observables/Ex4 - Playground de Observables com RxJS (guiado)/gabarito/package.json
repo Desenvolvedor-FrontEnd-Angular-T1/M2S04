@@ -1,0 +1,8 @@
+{
+  "name": "playground-rxjs",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": { "start": "node playground.mjs" },
+  "dependencies": { "rxjs": "^7.8.2" }
+}

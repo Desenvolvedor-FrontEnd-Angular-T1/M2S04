@@ -1,0 +1,13 @@
+<section class="historico">
+  <h2>Histórico <button (click)="limpar()">Limpar</button></h2>
+  <ul>
+    <!-- registros() lê o signal. track $index: o histórico não tem id próprio, então usamos a posição na lista -->
+    @for (r of service.registros(); track $index) {
+      <!-- date:'HH:mm:ss' formata a data como hora:minuto:segundo -->
+      <li>{{ r.data | date: 'HH:mm:ss' }} - {{ r.acao === 'emprestimo' ? 'Emprestou' : 'Devolveu' }}: <em>{{ r.titulo }}</em></li>
+    } @empty {
+      <!-- @empty aparece quando a lista está vazia -->
+      <li>Nenhuma ação registrada ainda.</li>
+    }
+  </ul>
+</section>

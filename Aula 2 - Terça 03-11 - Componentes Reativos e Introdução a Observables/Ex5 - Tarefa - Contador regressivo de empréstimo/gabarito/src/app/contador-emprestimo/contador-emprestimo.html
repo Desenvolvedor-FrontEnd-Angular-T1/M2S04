@@ -1,0 +1,6 @@
+<!-- restante() lê o signal. Quando chega a 0 mostramos o aviso de prazo vencido. -->
+@if (restante() > 0) {
+  <p class="contador">Devolver em: <strong>{{ restante() }}s</strong></p>
+} @else {
+  <p class="contador vencido">Prazo vencido! Devolva o livro.</p>
+}

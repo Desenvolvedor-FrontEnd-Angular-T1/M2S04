@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Da Semana 11 à Semana 12 — Ponte de Conteúdo</title>
+<style>
+  :root{
+    --navy:#1b4f72; --navy-dark:#123049; --zebra:#eef4f8;
+    --note-bg:#eaf2f8; --warn-bg:#fff3cd; --code-bg:#1e1e1e;
+    --verde:#2e7d32; --verde-dark:#1b5e20;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:#fff;font-family:Arial,Helvetica,sans-serif;color:#263238;line-height:1.55;font-size:13.5px}
+  .wrap{max-width:980px;margin:auto;padding:28px 34px}
+  h1{color:var(--navy);text-align:center;font-size:27px;margin-bottom:4px}
+  h1 + .subtitle{text-align:center;color:#37474f;font-size:15.5px;font-weight:bold;margin-top:0;margin-bottom:18px}
+  .meta{font-size:12.5px;color:#455a64;border-bottom:1px solid #cfd8dc;padding-bottom:16px;margin-bottom:16px}
+  .meta b{color:#263238}
+  h2.encontro,h2.section,h2.conexao,h2.aula{background:var(--navy);color:#fff;padding:10px 16px;border-radius:4px;font-size:17px;margin-top:34px;margin-bottom:14px;letter-spacing:.2px}
+  h3.bloco{color:var(--navy-dark);border-bottom:2px solid var(--navy);padding-bottom:4px;font-size:15px;margin-top:26px}
+  h3.dia{background:var(--navy-dark);color:#fff;padding:8px 14px;border-radius:4px;font-size:14.5px;margin-top:22px;margin-bottom:10px}
+  h3.questao{color:var(--navy-dark);font-size:14px;margin-top:22px;margin-bottom:2px}
+  .tempo{color:#607d8b;font-weight:normal;font-size:12.5px}
+  .enunciado{font-weight:bold;margin:4px 0 8px}
+  .obj-encontro,.objetivo-encontro{background:var(--zebra);border-left:4px solid var(--navy);padding:10px 14px;margin:14px 0 20px;font-size:13px}
+  .fala{background:var(--zebra);border-radius:5px;padding:10px 14px;margin:10px 0}
+  .fala b.label{color:var(--navy);display:block;margin-bottom:3px}
+  pre{background:var(--code-bg);color:#f8f8f2;padding:12px 14px;border-radius:6px;overflow:auto;font-size:11.8px;line-height:1.5;margin:10px 0;white-space:pre-wrap}
+  code{font-family:Consolas,Menlo,monospace}
+  :not(pre) > code{background:#eef4f8;color:var(--navy);padding:1px 5px;border-radius:3px;font-size:12px}
+  .pergunta{background:#f1f8f4;border-left:4px solid #2a9d8f;padding:9px 14px;margin:10px 0;font-size:13px}
+  .pergunta b{color:#1d7a6e}
+  .nota,.dica,.fio{background:var(--note-bg);border-left:4px solid var(--navy);border-radius:4px;padding:10px 14px;margin:12px 0;font-size:12.8px}
+  .nota .titulo,.dica .titulo,.fio .titulo{font-weight:bold;color:var(--navy);display:block;margin-bottom:3px}
+  .atencao,.apoio,.observacao{background:var(--warn-bg);border-left:4px solid #e08e00;border-radius:4px;padding:10px 14px;margin:12px 0;font-size:12.8px}
+  .atencao .titulo,.observacao .titulo{font-weight:bold;color:#8a5c00;display:block;margin-bottom:3px}
+  .apoio b{color:#8a5c00}
+  .realizado,.fechamento{background:#eef7f2;border-left:4px solid #2a9d8f;border-radius:4px;padding:10px 14px;margin:12px 0;font-size:12.8px}
+  .realizado .titulo{font-weight:bold;color:#1d7a6e;display:block;margin-bottom:3px}
+  .fechamento{margin:20px 0 8px;font-size:13px}
+  .fechamento b{color:#1d7a6e}
+  .erro-comum{background:#fdecea;border-left:4px solid #d9534f;border-radius:4px;padding:10px 14px;margin:10px 0 22px;font-size:12.8px}
+  .erro-comum .titulo,.erro-comum b:first-child{font-weight:bold;color:#a83a32}
+  .erro-comum .titulo{display:block;margin-bottom:3px}
+  .checklist-final{background:var(--navy);color:#fff;padding:11px 16px;border-radius:4px;font-size:16px;margin-top:36px}
+  table{width:100%;border-collapse:collapse;margin:10px 0 20px;font-size:12.6px}
+  th{background:var(--navy);color:#fff;text-align:left;padding:7px 10px}
+  td{padding:7px 10px;border-bottom:1px solid #e3e9ec;vertical-align:top}
+  tr:nth-child(even) td{background:var(--zebra)}
+  td.correta{font-weight:bold;color:#1d7a6e}
+  .slides{white-space:nowrap;color:var(--navy);font-weight:bold}
+  .comentario{font-size:12.5px;color:#455a64;margin:0 0 18px}
+  .comentario b{color:#263238}
+  .conferencia{background:var(--zebra);border-left:4px solid var(--navy);border-radius:4px;padding:12px 16px;margin-top:16px;font-size:12.8px}
+  .conferencia li{margin-bottom:6px}
+  .comparacao{display:flex;gap:16px;margin:12px 0;flex-wrap:wrap}
+  .comparacao .lado{flex:1;min-width:280px}
+  .rotulo-antes,.rotulo-depois{display:inline-block;color:#fff;font-size:11px;font-weight:bold;padding:3px 10px;border-radius:3px 3px 0 0}
+  .rotulo-antes{background:#d9534f}.rotulo-depois{background:#2a9d8f}
+  .caixa-antes{border:2px solid #d9534f;border-top:none;border-radius:0 0 6px 6px}
+  .caixa-depois{border:2px solid #2a9d8f;border-top:none;border-radius:0 0 6px 6px}
+  .caixa-antes pre,.caixa-depois pre{margin:0;border-radius:0}
+  .checklist li{list-style:none;margin-bottom:7px;padding-left:24px;position:relative;font-size:13px}
+  .checklist li::before{content:"✓";position:absolute;left:0;color:#2a9d8f;font-weight:bold}
+  .video-item{border:1px solid #e3e9ec;border-radius:6px;padding:10px 14px;margin-bottom:10px}
+  .video-item .titulo-video{font-weight:bold;color:var(--navy-dark);display:block;margin-bottom:2px}
+  .video-item .canal{color:#607d8b;font-size:12px}
+  .video-item .desc{margin:4px 0 0;font-size:12.6px}
+  .paleta{display:flex;flex-wrap:wrap;gap:10px;margin:10px 0 18px}
+  .cor{width:140px;border:1px solid #cfd8dc;border-radius:8px;overflow:hidden;font-size:11.5px}
+  .cor .amostra{height:46px}
+  .cor .info{padding:6px 8px}
+  a{color:var(--navy)}
+  ul{margin-top:6px}
+  li{margin-bottom:5px}
+  hr{border:none;border-top:1px solid #cfd8dc;margin:26px 0}
+  .pagebreak{break-before:page}
+  footer{margin-top:40px;padding-top:14px;border-top:1px solid #e3e9ec;color:#78909c;font-size:11px;text-align:center}
+  @media print{ .wrap{padding:0} a{color:var(--navy) !important;text-decoration:underline} }
+
+  .pausa{background:#eef7f2;border-left:4px solid #2a9d8f;border-radius:4px;padding:10px 14px;margin:12px 0;font-size:12.8px}
+  .pausa .titulo{font-weight:bold;color:#1d7a6e;display:block;margin-bottom:3px}
+  .tela{background:#fff;border:1px dashed #90a4ae;border-radius:4px;padding:8px 14px;margin:10px 0;font-size:12.8px}
+  .tela .titulo{font-weight:bold;color:#455a64;display:block;margin-bottom:3px}
+  .minuto{display:inline-block;background:var(--navy);color:#fff;font-size:11.5px;font-weight:bold;padding:2px 9px;border-radius:3px;margin-right:6px}
+  table.compacta td,table.compacta th{padding:5px 8px;font-size:12px}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<h1>Da Semana 11 à Semana 12</h1>
+  <p class="subtitle">Conectando o HTML semântico, o localStorage, o fetch e as Browser APIs ao Node.js, ao npm, aos módulos e ao debugger</p>
+  <p class="meta">
+    Desenvolvimento Front-End [React] T4 | Módulo 1 &nbsp;|&nbsp;
+    Este material não traz conteúdo novo — ele mostra, ponto a ponto, como o que você já praticou nas semanas anteriores (módulos da S05, <code>async/await</code> da S06, DOM, e a S11 com <code>localStorage</code>, <code>fetch</code>, timers e revisão de código da IA) é a
+    <b>base literal</b> do que vamos fazer na Semana 12. A ideia é simples:
+    <b>nada aqui é assunto desconhecido, é o mesmo conhecimento crescendo.</b>
+  </p>
+
+<h3 class="bloco" style="border:none;margin-top:0">Como ler este material</h3>
+  <p>Cada seção segue o mesmo formato: primeiro, <b>o que você já sabe</b> (com o código como ele apareceu na Semana 11 e antes); depois, <b>o que a Semana 12 acrescenta</b>; por fim, uma comparação lado a lado entre a versão "de antes" e a "de agora" do mesmo problema.</p>
+
+  <div class="fio"><span class="titulo">O fio condutor: o programa que cresceu</span>
+  Na Semana 11 você construiu o <b>PrevisaoCerta</b>, um painel que roda no navegador. Agora o palco muda: o JavaScript roda no <b>terminal</b>, com o <b>Node.js</b>, e o projeto é o <b>Quiz da Copa 2026</b>.
+  O problema-âncora é de todo programador: <i>o programa cresceu — como instalar o que ele precisa, organizar em arquivos e descobrir o que está errado sem adivinhar?</i></div>
+<table><tr><th>Semana</th><th>O que você construiu</th><th>Ferramenta usada</th></tr>
+<tr><td>05</td><td>Separar funções em arquivos no Node</td><td><code>module.exports</code> / <code>require</code></td></tr>
+<tr><td>06</td><td>Código assíncrono sem travar a página</td><td><code>async</code>/<code>await</code></td></tr>
+<tr><td>08–09</td><td>JavaScript mexendo na página; formulários</td><td>DOM, eventos, <code>submit</code></td></tr>
+<tr><td>11</td><td>Painel acessível, com memória e dados reais</td><td>HTML semântico, <code>localStorage</code> + JSON, <code>fetch</code>, <code>setTimeout</code>/<code>setInterval</code>, Geolocation</td></tr>
+<tr><td>12</td><td>Quiz da Copa no terminal: pacotes, módulos e bugs caçados</td><td><b>Assunto desta semana:</b> Node + npm, CommonJS × ESM, debugger do VS Code</td></tr>
+</table><h2 class="conexao pagebreak">CONEXÃO 1 — Dos quatro &lt;script&gt; em ordem aos módulos</h2><h3 class="bloco">O que você já sabe (Semana 11)</h3>
+  <p>No PrevisaoCerta você dividiu o código em <code>storage.js</code>, <code>api.js</code>, <code>ui.js</code> e <code>app.js</code> e os ligou no HTML <b>na ordem certa</b>. Tudo vivia no escopo global: se a ordem errasse, aparecia <code>... is not defined</code>.</p><pre><code>&lt;script src="js/storage.js"&gt;&lt;/script&gt;
+&lt;script src="js/api.js"&gt;&lt;/script&gt;
+&lt;script src="js/ui.js"&gt;&lt;/script&gt;
+&lt;script src="js/app.js"&gt;&lt;/script&gt;</code></pre><h3 class="bloco">O que a Semana 12 acrescenta</h3>
+  <ul>
+    <li><b>Módulo:</b> cada arquivo diz o que <b>exporta</b> e o que <b>importa</b> — a dependência fica escrita no código, sem depender da ordem dos scripts.</li>
+    <li><b>Dois sistemas:</b> <code>module.exports</code>/<code>require</code> (CommonJS, o clássico do Node) e <code>export</code>/<code>import</code> (ESM, o padrão da linguagem, que também funciona no navegador).</li>
+    <li><b>Declare o sistema:</b> <code>"type": "module"</code> no <code>package.json</code> (ou <code>.mjs</code>/<code>.cjs</code>) — e, no ESM, a extensão <code>.js</code> é obrigatória.</li>
+  </ul>
+  <h3 class="bloco">Comparando o código: o mesmo painel, antes e depois</h3><div class="comparacao">
+    <div class="lado">
+      <span class="rotulo-antes">SEMANA 11 — ordem manual, tudo global</span>
+      <div class="caixa-antes"><pre><code>// ui.js usa funções de storage.js
+// "sem import": depende da ordem no HTML
+function atualizarTela() {
+  renderizarLista(carregarCidades());
+}</code></pre></div>
+    </div>
+    <div class="lado">
+      <span class="rotulo-depois">SEMANA 12 — dependências declaradas</span>
+      <div class="caixa-depois"><pre><code>// ui.js (ESM)
+import { carregarCidades } from "./storage.js";
+
+export function atualizarTela() {
+  renderizarLista(carregarCidades());
+}</code></pre></div>
+    </div>
+  </div><div class="observacao"><span class="titulo">O que realmente mudou?</span>A lógica é a mesma. Muda <b>onde a dependência está escrita</b>: no HTML (frágil, pela ordem) ou no próprio arquivo (clara, verificável). No Módulo 2, o React vive de <code>import</code>/<code>export</code>.</div><h2 class="conexao pagebreak">CONEXÃO 2 — Do localStorage e do JSON ao package.json e aos arquivos</h2><h3 class="bloco">O que você já sabe (Semana 11)</h3>
+  <p><code>localStorage</code> guarda só texto; por isso usamos <code>JSON.stringify</code> para salvar e <code>JSON.parse</code> para ler. E na primeira visita a chave não existe: <code>getItem</code> devolve <code>null</code>, o que obriga o <code>|| []</code>.</p>
+  <h3 class="bloco">O que a Semana 12 acrescenta</h3>
+  <ul>
+    <li><b>O <code>package.json</code> é JSON:</b> o mesmo formato que você já lê e escreve. O npm o lê e o atualiza a cada <code>npm install</code>.</li>
+    <li><b>No Node não existe <code>localStorage</code>:</b> para guardar dados em disco usa-se o módulo nativo <code>node:fs</code> (<code>readFileSync</code>/<code>writeFileSync</code>) — com o mesmo par <code>stringify</code>/<code>parse</code>.</li>
+    <li><b>A "primeira visita" vira "o arquivo ainda não existe":</b> <code>existsSync</code> cumpre o papel do <code>|| []</code> (Ex4 de quinta).</li>
+  </ul>
+  <h3 class="bloco">Comparando o código: a mesma lista, agora num arquivo</h3><div class="comparacao">
+    <div class="lado">
+      <span class="rotulo-antes">SEMANA 11 — navegador</span>
+      <div class="caixa-antes"><pre><code>function carregarCidades() {
+  return JSON.parse(
+    localStorage.getItem("previsaocerta:cidades")
+  ) || [];
+}</code></pre></div>
+    </div>
+    <div class="lado">
+      <span class="rotulo-depois">SEMANA 12 — Node</span>
+      <div class="caixa-depois"><pre><code>import { existsSync, readFileSync } from "node:fs";
+
+export function carregarRanking() {
+  if (!existsSync(ARQUIVO)) return [];
+  return JSON.parse(readFileSync(ARQUIVO, "utf-8"));
+}</code></pre></div>
+    </div>
+  </div><div class="observacao"><span class="titulo">O que realmente mudou?</span>O raciocínio — texto ↔ estrutura, e o caso "ainda não existe" — é idêntico. Só muda <b>onde</b> o texto fica: na memória do navegador ou num arquivo do disco.</div><h2 class="conexao pagebreak">CONEXÃO 3 — Do console, dos erros e do DevTools ao debugger do VS Code</h2><h3 class="bloco">O que você já sabe (Semanas 08–11)</h3>
+  <p>Você já lê o <b>Console</b>, usa a aba <b>Application</b> para conferir o <code>localStorage</code>, a aba <b>Network</b> para ver o <code>fetch</code> e já aprendeu a ler mensagens como <code>Cannot read properties of null</code>. Isso é depuração — só que feita "no olho" e com <code>console.log</code>.</p>
+  <h3 class="bloco">O que a Semana 12 acrescenta</h3>
+  <ul>
+    <li><b>Novas mensagens para ler no terminal:</b> <code>Cannot find module</code> (faltou <code>npm install</code>), <code>ERR_MODULE_NOT_FOUND</code> (faltou o <code>.js</code>), <code>require is not defined</code> (projeto ESM) e o <code>TypeError ... (reading 'yellow')</code> do chalk.</li>
+    <li><b>Breakpoint no lugar do <code>console.log</code>:</b> pausar o programa e olhar <b>Variables</b>, <b>Watch</b> e <b>Call Stack</b>, sem editar o código.</li>
+    <li><b>A pista que o <code>console.log</code> esconde:</b> <code>console.log("3", 3)</code> imprime <code>3 3</code>; o painel Variables mostra <code>"3"</code> com aspas — é texto.</li>
+  </ul><table><tr><th>No navegador (Semana 11)</th><th>No Node + VS Code (Semana 12)</th></tr>
+<tr><td><code>console.log</code> e a aba Console</td><td>Breakpoint, Watch e Debug Console</td></tr>
+<tr><td>Aba Sources e <code>debugger;</code></td><td>Run and Debug, <code>launch.json</code> e o JavaScript Debug Terminal</td></tr>
+<tr><td>Aba Application (chaves do <code>localStorage</code>)</td><td><code>package.json</code>, <code>package-lock.json</code> e <code>node_modules</code></td></tr>
+<tr><td>Aba Network (status 200/404)</td><td><code>npm ls</code>, <code>npm outdated</code> e <code>npm audit</code></td></tr>
+<tr><td>Ler "Cannot read properties of null"</td><td>Ler "Cannot read properties of undefined" e achar o <code>q</code> indefinido pela Call Stack</td></tr>
+</table><h2 class="conexao pagebreak">CONEXÃO 4 — Das Browser APIs ao ambiente do Node</h2><h3 class="bloco">O que você já sabe (Semana 11)</h3>
+  <p><code>setTimeout</code>, <code>setInterval</code>, <code>fetch</code>, <code>localStorage</code> e Geolocation são <b>APIs do navegador</b>. Você as usou com <code>window</code> e <code>document</code> sempre por perto.</p>
+  <h3 class="bloco">O que a Semana 12 acrescenta</h3>
+  <p>O JavaScript é o mesmo, mas <b>o que está disponível depende do palco</b>:</p><table><tr><th>Recurso</th><th>Navegador</th><th>Node.js</th></tr>
+<tr><td><code>console.log</code>, <code>setTimeout</code>, <code>setInterval</code></td><td>sim</td><td>sim</td></tr>
+<tr><td><code>fetch</code></td><td>sim</td><td>sim (versões recentes)</td></tr>
+<tr><td><code>window</code>, <code>document</code>, DOM, <code>localStorage</code>, Geolocation</td><td>sim</td><td><b>não</b></td></tr>
+<tr><td><code>process</code>, <code>require</code>, <code>node:fs</code>, <code>node:path</code></td><td><b>não</b></td><td>sim</td></tr>
+<tr><td><code>import</code>/<code>export</code> (ESM)</td><td>sim (<code>type="module"</code>)</td><td>sim (<code>"type":"module"</code>)</td></tr>
+</table><pre><code>console.log(typeof window, typeof process);
+// navegador → object undefined
+// Node      → undefined object</code></pre><h2 class="conexao pagebreak">CONEXÃO 5 — Da revisão do código da IA à revisão de pacotes e módulos</h2><h3 class="bloco">O que você já sabe (Semana 11)</h3>
+  <p>O ciclo <b>gerar → revisar → consertar → justificar</b> e os pontos cegos da IA: acessibilidade, segurança, tratamento de erro e API depreciada ou alucinada. A regra: <i>você não usa um código que não consegue explicar</i>.</p>
+  <h3 class="bloco">O que a Semana 12 acrescenta</h3>
+  <ul>
+    <li><b>Pacotes que não existem:</b> a IA pode sugerir um nome inventado — confira no npmjs.com (nome, downloads, mantenedor) antes de instalar.</li>
+    <li><b>Mistura de sistemas:</b> <code>import</code> e <code>require</code> no mesmo arquivo; <code>.js</code> esquecido no <code>import</code>; <code>__dirname</code> no ESM.</li>
+    <li><b>Instalação global por hábito:</b> a IA sugere <code>-g</code> ou <code>sudo</code> onde o certo é local.</li>
+    <li><b>O debugger como prova:</b> para explicar e justificar um conserto, mostre o breakpoint e as variáveis.</li>
+  </ul>
+  <div class="observacao"><span class="titulo">Ligação direta</span>A atividade da quinta usa exatamente isto: a IA entrega um <code>index.js</code> com <code>import</code> e <code>require</code> misturados — e você diagnostica a partir da mensagem de erro.</div><h2 class="conexao">Checklist: você já está pronto para a Semana 12 se...</h2><ul class="checklist">
+    <li>Sabe abrir o terminal do VS Code, trocar de pasta (<code>cd</code>) e listar arquivos.</li>
+    <li>Sabe escrever funções, laços (<code>for</code>), <code>if/else</code>, template strings e arrays de objetos.</li>
+    <li>Lembra de <code>module.exports</code> e <code>require</code> da Semana 05 (vamos retomar na quinta).</li>
+    <li>Entende que o <code>localStorage</code> só guarda texto e usa <code>JSON.stringify</code>/<code>JSON.parse</code>.</li>
+    <li>Sabe o que faz <code>async</code>/<code>await</code> e <code>try/catch</code>.</li>
+    <li>Sabe ler uma mensagem de erro inteira e achar o arquivo e a linha.</li>
+    <li>Sabe abrir o DevTools (F12) e olhar Console e Sources.</li>
+  </ul>
+  <p>Se todos esses pontos fazem sentido, a Semana 12 não vai apresentar nada desconhecido — ela dá nome, comando e ferramenta profissional (npm, módulos, debugger) para instintos que você já desenvolveu.</p>
+
+  <footer>
+    Desenvolvimento Front-End [React] T4 — SENAI/SC — Material de conexão Semana 11 → Semana 12<br>
+    Professor Lisandro Faria Pinheiro
+  </footer>
+
+</div>
+</body>
+</html>

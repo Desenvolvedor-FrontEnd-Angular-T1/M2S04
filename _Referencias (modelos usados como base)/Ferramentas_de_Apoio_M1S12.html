@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Ferramentas de Apoio — Semana 12</title>
+<style>
+  :root{
+    --navy:#1b4f72; --navy-dark:#123049; --zebra:#eef4f8;
+    --note-bg:#eaf2f8; --warn-bg:#fff3cd; --code-bg:#1e1e1e;
+    --verde:#2e7d32; --verde-dark:#1b5e20;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:#fff;font-family:Arial,Helvetica,sans-serif;color:#263238;line-height:1.55;font-size:13.5px}
+  .wrap{max-width:980px;margin:auto;padding:28px 34px}
+  h1{color:var(--navy);text-align:center;font-size:27px;margin-bottom:4px}
+  h1 + .subtitle{text-align:center;color:#37474f;font-size:15.5px;font-weight:bold;margin-top:0;margin-bottom:18px}
+  .meta{font-size:12.5px;color:#455a64;border-bottom:1px solid #cfd8dc;padding-bottom:16px;margin-bottom:16px}
+  .meta b{color:#263238}
+  h2.encontro,h2.section,h2.conexao,h2.aula{background:var(--navy);color:#fff;padding:10px 16px;border-radius:4px;font-size:17px;margin-top:34px;margin-bottom:14px;letter-spacing:.2px}
+  h3.bloco{color:var(--navy-dark);border-bottom:2px solid var(--navy);padding-bottom:4px;font-size:15px;margin-top:26px}
+  h3.dia{background:var(--navy-dark);color:#fff;padding:8px 14px;border-radius:4px;font-size:14.5px;margin-top:22px;margin-bottom:10px}
+  h3.questao{color:var(--navy-dark);font-size:14px;margin-top:22px;margin-bottom:2px}
+  .tempo{color:#607d8b;font-weight:normal;font-size:12.5px}
+  .enunciado{font-weight:bold;margin:4px 0 8px}
+  .obj-encontro,.objetivo-encontro{background:var(--zebra);border-left:4px solid var(--navy);padding:10px 14px;margin:14px 0 20px;font-size:13px}
+  .fala{background:var(--zebra);border-radius:5px;padding:10px 14px;margin:10px 0}
+  .fala b.label{color:var(--navy);display:block;margin-bottom:3px}
+  pre{background:var(--code-bg);color:#f8f8f2;padding:12px 14px;border-radius:6px;overflow:auto;font-size:11.8px;line-height:1.5;margin:10px 0;white-space:pre-wrap}
+  code{font-family:Consolas,Menlo,monospace}
+  :not(pre) > code{background:#eef4f8;color:var(--navy);padding:1px 5px;border-radius:3px;font-size:12px}
+  .pergunta{background:#f1f8f4;border-left:4px solid #2a9d8f;padding:9px 14px;margin:10px 0;font-size:13px}
+  .pergunta b{color:#1d7a6e}
+  .nota,.dica,.fio{background:var(--note-bg);border-left:4px solid var(--navy);border-radius:4px;padding:10px 14px;margin:12px 0;font-size:12.8px}
+  .nota .titulo,.dica .titulo,.fio .titulo{font-weight:bold;color:var(--navy);display:block;margin-bottom:3px}
+  .atencao,.apoio,.observacao{background:var(--warn-bg);border-left:4px solid #e08e00;border-radius:4px;padding:10px 14px;margin:12px 0;font-size:12.8px}
+  .atencao .titulo,.observacao .titulo{font-weight:bold;color:#8a5c00;display:block;margin-bottom:3px}
+  .apoio b{color:#8a5c00}
+  .realizado,.fechamento{background:#eef7f2;border-left:4px solid #2a9d8f;border-radius:4px;padding:10px 14px;margin:12px 0;font-size:12.8px}
+  .realizado .titulo{font-weight:bold;color:#1d7a6e;display:block;margin-bottom:3px}
+  .fechamento{margin:20px 0 8px;font-size:13px}
+  .fechamento b{color:#1d7a6e}
+  .erro-comum{background:#fdecea;border-left:4px solid #d9534f;border-radius:4px;padding:10px 14px;margin:10px 0 22px;font-size:12.8px}
+  .erro-comum .titulo,.erro-comum b:first-child{font-weight:bold;color:#a83a32}
+  .erro-comum .titulo{display:block;margin-bottom:3px}
+  .checklist-final{background:var(--navy);color:#fff;padding:11px 16px;border-radius:4px;font-size:16px;margin-top:36px}
+  table{width:100%;border-collapse:collapse;margin:10px 0 20px;font-size:12.6px}
+  th{background:var(--navy);color:#fff;text-align:left;padding:7px 10px}
+  td{padding:7px 10px;border-bottom:1px solid #e3e9ec;vertical-align:top}
+  tr:nth-child(even) td{background:var(--zebra)}
+  td.correta{font-weight:bold;color:#1d7a6e}
+  .slides{white-space:nowrap;color:var(--navy);font-weight:bold}
+  .comentario{font-size:12.5px;color:#455a64;margin:0 0 18px}
+  .comentario b{color:#263238}
+  .conferencia{background:var(--zebra);border-left:4px solid var(--navy);border-radius:4px;padding:12px 16px;margin-top:16px;font-size:12.8px}
+  .conferencia li{margin-bottom:6px}
+  .comparacao{display:flex;gap:16px;margin:12px 0;flex-wrap:wrap}
+  .comparacao .lado{flex:1;min-width:280px}
+  .rotulo-antes,.rotulo-depois{display:inline-block;color:#fff;font-size:11px;font-weight:bold;padding:3px 10px;border-radius:3px 3px 0 0}
+  .rotulo-antes{background:#d9534f}.rotulo-depois{background:#2a9d8f}
+  .caixa-antes{border:2px solid #d9534f;border-top:none;border-radius:0 0 6px 6px}
+  .caixa-depois{border:2px solid #2a9d8f;border-top:none;border-radius:0 0 6px 6px}
+  .caixa-antes pre,.caixa-depois pre{margin:0;border-radius:0}
+  .checklist li{list-style:none;margin-bottom:7px;padding-left:24px;position:relative;font-size:13px}
+  .checklist li::before{content:"✓";position:absolute;left:0;color:#2a9d8f;font-weight:bold}
+  .video-item{border:1px solid #e3e9ec;border-radius:6px;padding:10px 14px;margin-bottom:10px}
+  .video-item .titulo-video{font-weight:bold;color:var(--navy-dark);display:block;margin-bottom:2px}
+  .video-item .canal{color:#607d8b;font-size:12px}
+  .video-item .desc{margin:4px 0 0;font-size:12.6px}
+  .paleta{display:flex;flex-wrap:wrap;gap:10px;margin:10px 0 18px}
+  .cor{width:140px;border:1px solid #cfd8dc;border-radius:8px;overflow:hidden;font-size:11.5px}
+  .cor .amostra{height:46px}
+  .cor .info{padding:6px 8px}
+  a{color:var(--navy)}
+  ul{margin-top:6px}
+  li{margin-bottom:5px}
+  hr{border:none;border-top:1px solid #cfd8dc;margin:26px 0}
+  .pagebreak{break-before:page}
+  footer{margin-top:40px;padding-top:14px;border-top:1px solid #e3e9ec;color:#78909c;font-size:11px;text-align:center}
+  @media print{ .wrap{padding:0} a{color:var(--navy) !important;text-decoration:underline} }
+
+  .pausa{background:#eef7f2;border-left:4px solid #2a9d8f;border-radius:4px;padding:10px 14px;margin:12px 0;font-size:12.8px}
+  .pausa .titulo{font-weight:bold;color:#1d7a6e;display:block;margin-bottom:3px}
+  .tela{background:#fff;border:1px dashed #90a4ae;border-radius:4px;padding:8px 14px;margin:10px 0;font-size:12.8px}
+  .tela .titulo{font-weight:bold;color:#455a64;display:block;margin-bottom:3px}
+  .minuto{display:inline-block;background:var(--navy);color:#fff;font-size:11.5px;font-weight:bold;padding:2px 9px;border-radius:3px;margin-right:6px}
+  table.compacta td,table.compacta th{padding:5px 8px;font-size:12px}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<h1>Ferramentas de Apoio — Semana 12</h1>
+  <p class="subtitle">Extensões, ferramentas do terminal e do VS Code, documentação e roteiro de vídeo-aulas para Node.js, npm, módulos (CommonJS × ESM) e depuração</p>
+  <p class="meta">
+    Desenvolvimento Front-End [React] T4 | Módulo 1 | Semana 12 &nbsp;|&nbsp;
+    Este material reúne as ferramentas do terminal e do VS Code que facilitam o trabalho da semana, as extensões recomendadas, a documentação de referência (a "fonte da verdade" — não o palpite da IA) e vídeo-aulas recomendadas para reforçar cada tema fora do horário de aula.
+    Nenhum material substitui a aula — use-os para revisar antes ou depois do encontro.
+  </p>
+
+<h2 class="section">0. Instalar o Node.js e o npm na versão mais atual (1 passo)</h2><table><tr><th>Sistema</th><th>Comando exato</th></tr>
+<tr><td>Windows (recomendado)</td><td><code>winget install OpenJS.NodeJS.LTS</code> — depois feche e reabra o terminal</td></tr>
+<tr><td>Windows (atualizar)</td><td><code>winget upgrade OpenJS.NodeJS.LTS</code></td></tr>
+<tr><td>npm na versão mais nova</td><td><code>npm install -g npm@latest</code></td></tr>
+<tr><td>macOS</td><td><code>brew install node</code></td></tr>
+<tr><td>Linux/macOS com nvm</td><td><code>curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.8/install.sh | bash</code> e, em terminal novo, <code>nvm install --lts</code></td></tr>
+</table><div class="dica"><span class="titulo">Fluxograma</span>O passo a passo visual (e o que fazer quando a versão do Node não pode ser trocada) está em <code>Guia_Instalacao_Node_npm_com_Fluxograma_M1S12</code>.</div><h2 class="section">1. Ferramentas do terminal e do VS Code (já vêm instaladas)</h2><table><tr><th>Ferramenta</th><th>Onde fica</th><th>Para que serve nesta semana</th></tr>
+<tr><td><b>Terminal integrado</b></td><td><code>Ctrl + '</code> ou Terminal › Novo Terminal</td><td>Rodar <code>node</code>, <code>npm</code> e <code>npx</code> dentro da pasta do projeto (confira com <code>pwd</code>)</td></tr>
+<tr><td><b>JavaScript Debug Terminal</b></td><td>Terminal › seta ao lado do <b>+</b> › <i>JavaScript Debug Terminal</i></td><td>Qualquer <code>node arquivo.js</code> digitado ali já para nos breakpoints (Plano A de sexta)</td></tr>
+<tr><td><b>Run and Debug</b></td><td><code>Ctrl + Shift + D</code></td><td>Painéis Variables, Watch, Call Stack e Breakpoints; criar o <code>launch.json</code> (Plano B)</td></tr>
+<tr><td><b>Debug Console</b></td><td>Painel inferior durante a pausa</td><td>Avaliar expressões no ponto pausado (<code>typeof resposta</code>)</td></tr>
+<tr><td><b>Breakpoint condicional / logpoint</b></td><td>Botão direito na canaleta ao lado do número da linha</td><td>Parar só quando a condição for verdadeira; imprimir sem editar o código</td></tr>
+<tr><td><b>Explorer</b></td><td><code>Ctrl + Shift + E</code></td><td>Ver <code>package.json</code>, <code>package-lock.json</code> e a pasta <code>node_modules</code> aparecerem</td></tr>
+<tr><td><b>DevTools › Sources</b></td><td><code>F12</code> › aba Sources</td><td>Breakpoints no front-end (Ex4 ⭐ de sexta)</td></tr>
+</table><div class="dica"><span class="titulo">Dica</span>Se o PowerShell reclamar de <code>npm.ps1 ... running scripts is disabled</code>, use o <b>Prompt de Comando</b> ou o <b>Git Bash</b> no terminal do VS Code, ou rode uma vez <code>Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy RemoteSigned</code>.</div><h2 class="section">2. Extensões do VS Code</h2><p>Instale pela aba de Extensões (<code>Ctrl+Shift+X</code>), buscando pelo nome ou colando o identificador. O <b>depurador de JavaScript já vem embutido</b> no VS Code — não precisa instalar nada para depurar Node.</p><table><tr><th>Extensão</th><th>Identificador</th><th>O que faz</th><th>Por que ajuda nesta semana</th></tr>
+<tr><td><b>Live Server</b></td><td><code>ritwickdey.LiveServer</code></td><td>Servidor local com recarregamento automático</td><td>Necessário para depurar o front-end (Ex4 ⭐) e para testar <code>&lt;script type="module"&gt;</code></td></tr>
+<tr><td><b>Error Lens</b></td><td><code>usernamehw.errorlens</code></td><td>Mostra os erros na própria linha</td><td>Ajuda a achar o <code>require</code> no meio de um projeto ESM</td></tr>
+<tr><td><b>npm Intellisense</b></td><td><code>christian-kohler.npm-intellisense</code></td><td>Autocompleta nomes de pacotes no <code>import</code>/<code>require</code></td><td>Menos erro de digitação em <code>prompt-sync</code> e <code>chalk</code></td></tr>
+<tr><td><b>Path Intellisense</b></td><td><code>christian-kohler.path-intellisense</code></td><td>Autocompleta caminhos de arquivos</td><td>Ajuda a acertar o <code>./perguntas.js</code> com a extensão</td></tr>
+<tr><td><b>ESLint</b></td><td><code>dbaeumer.vscode-eslint</code></td><td>Aponta problemas no JavaScript enquanto você digita</td><td>Pega variáveis não definidas e mistura de sistemas antes de rodar (exige configuração do projeto)</td></tr>
+<tr><td><b>Prettier - Code formatter</b></td><td><code>esbenp.prettier-vscode</code></td><td>Formata o código ao salvar</td><td>Mantém os módulos legíveis</td></tr>
+</table><div class="dica"><span class="titulo">Dica</span>Você não precisa instalar todas. Se for escolher só uma para começar, escolha o <b>Live Server</b>; depois, o <b>Error Lens</b>. Se algum identificador não aparecer na busca, procure pelo nome da extensão.</div><h2 class="section pagebreak">3. Ferramentas e sites úteis (gratuitos)</h2><ul><li><b>Node.js (versão LTS)</b> — <a href="https://nodejs.org/">nodejs.org</a>: instalador oficial e documentação.</li><li><b>npm (registro de pacotes)</b> — <a href="https://www.npmjs.com/">npmjs.com</a>: pesquise um pacote, veja downloads semanais, versões e o mantenedor <i>antes</i> de instalar.</li><li><b>Calculadora de semver</b> — <a href="https://semver.npmjs.com/">semver.npmjs.com</a>: veja que versões o <code>^4.1.2</code> e o <code>~4.1.2</code> aceitam.</li><li><b>nvm-windows</b> — <a href="https://github.com/coreybutler/nvm-windows">github.com/coreybutler/nvm-windows</a>: alternar entre versões do Node (útil para ver o <code>ERR_REQUIRE_ESM</code> em Node antigo × o <code>TypeError</code> em Node novo).</li><li><b>pnpm e Yarn</b> — <a href="https://pnpm.io/">pnpm.io</a> e <a href="https://yarnpkg.com/">yarnpkg.com</a>: gerenciadores alternativos (apenas para conhecer).</li><li><b>chalk</b> — <a href="https://github.com/chalk/chalk">github.com/chalk/chalk</a> e <b>prompt-sync</b> — <a href="https://www.npmjs.com/package/prompt-sync">npmjs.com/package/prompt-sync</a>: os dois pacotes do Quiz da Copa.</li></ul><h2 class="section">4. Documentação de referência (a fonte da verdade)</h2><p>Quando a IA e o colega discordarem, confira na documentação oficial. Se algum endereço mudar, busque pelo título no site:</p><table><tr><th>Tema</th><th>Onde conferir</th></tr>
+<tr><td>Módulos CommonJS e ECMAScript no Node</td><td><a href="https://nodejs.org/docs/latest/api/modules.html">nodejs.org/docs/latest/api/modules.html</a> e <a href="https://nodejs.org/docs/latest/api/esm.html">nodejs.org/docs/latest/api/esm.html</a></td></tr>
+<tr><td>Pacotes e o campo <code>type</code> do <code>package.json</code></td><td><a href="https://nodejs.org/docs/latest/api/packages.html">nodejs.org/docs/latest/api/packages.html</a></td></tr>
+<tr><td><code>package.json</code>, scripts, <code>npx</code>, <code>npm install</code></td><td>Pesquise o comando em <a href="https://docs.npmjs.com/">docs.npmjs.com</a></td></tr>
+<tr><td>Módulos JavaScript (<code>import</code>/<code>export</code>)</td><td><a href="https://developer.mozilla.org/pt-BR/docs/Web/JavaScript/Guide/Modules">developer.mozilla.org/pt-BR/docs/Web/JavaScript/Guide/Modules</a></td></tr>
+<tr><td>Depuração no VS Code (breakpoints, logpoints, <code>launch.json</code>)</td><td><a href="https://code.visualstudio.com/docs/editor/debugging">code.visualstudio.com/docs/editor/debugging</a> e <a href="https://code.visualstudio.com/docs/nodejs/nodejs-debugging">code.visualstudio.com/docs/nodejs/nodejs-debugging</a></td></tr>
+</table><h2 class="section pagebreak">5. Vídeo-aulas recomendadas</h2><div class="atencao"><span class="titulo">Importante</span>Os links abaixo foram localizados por busca na web em 09/10/2026 e conferidos <b>apenas pelo título</b> (e descrição curta exibida na busca); o professor ainda não assistiu aos vídeos. Dê preferência aos <b>em português</b>; os em inglês/espanhol estão marcados e servem de reforço. Antes de publicar no AVA, assista ao trecho principal de cada um e remova os que não combinarem com a abordagem do curso (versões antigas de Node podem aparecer em vídeos mais velhos).</div><h3 class="dia">Antes da aula — instalar e atualizar o Node.js e o npm</h3><div class="video-item"><span class="titulo-video">Como Instalar Node JS com NVM no Windows</span><span class="canal">YouTube · português</span><p class="desc">Instalação do Node com o nvm-windows (várias versões lado a lado).</p><a href="https://www.youtube.com/watch?v=N0apM_JO6yY">youtube.com/watch?v=N0apM_JO6yY</a></div><div class="video-item"><span class="titulo-video">Como Instalar Node.js com o NVM no Windows</span><span class="canal">YouTube · português</span><p class="desc">Outra aula, com o mesmo tema — compare e use a que ficar mais clara.</p><a href="https://www.youtube.com/watch?v=64i9Jhn_lZc">youtube.com/watch?v=64i9Jhn_lZc</a></div><div class="video-item"><span class="titulo-video">CONTROLE DE VERSÃO DO NODE JS COM NVM PARA WINDOWS</span><span class="canal">YouTube · português</span><p class="desc">Como alternar entre versões do Node (nvm use).</p><a href="https://www.youtube.com/watch?v=PAbg6e8erp4">youtube.com/watch?v=PAbg6e8erp4</a></div><div class="video-item"><span class="titulo-video">Atualizando npm com nvm no Windows 10 - Explicação detalhada do erro e como resolver</span><span class="canal">YouTube · português</span><p class="desc">Útil quando o npm não atualiza com o nvm.</p><a href="https://www.youtube.com/watch?v=3FUS3ke9BtQ">youtube.com/watch?v=3FUS3ke9BtQ</a></div><div class="video-item"><span class="titulo-video">Como instalar várias versões do Node.js (Linux e Windows)</span><span class="canal">YouTube · português</span><p class="desc">Instalação de múltiplas versões em Linux e Windows.</p><a href="https://www.youtube.com/watch?v=j6HKbd9nyWI">youtube.com/watch?v=j6HKbd9nyWI</a></div><h3 class="dia">13/10 — Node.js, npm e instalação global × local</h3><div class="video-item"><span class="titulo-video">Package.json e NPM: Tudo que você queria saber!</span><span class="canal">YouTube · português</span><p class="desc">Revisa o package.json, o package-lock.json e a relação entre os dois.</p><a href="https://www.youtube.com/watch?v=Tvf7hGH0Y0Q">youtube.com/watch?v=Tvf7hGH0Y0Q</a></div><div class="video-item"><span class="titulo-video">Desenvolvimento profissional em JavaScript - NPM (gerenciador de pacotes node) - package.json</span><span class="canal">YouTube · português</span><p class="desc">Aula sobre o npm e a configuração do package.json.</p><a href="https://www.youtube.com/watch?v=2psKa1wJNcI">youtube.com/watch?v=2psKa1wJNcI</a></div><div class="video-item"><span class="titulo-video">AULÃO: APRENDA A GERENCIAR SEU PROJETO NODE COM O PACKAGE.JSON</span><span class="canal">YouTube · português</span><p class="desc">Aula mais longa sobre o arquivo de configuração de projetos Node.</p><a href="https://www.youtube.com/watch?v=GnXkpTW0bF8">youtube.com/watch?v=GnXkpTW0bF8</a></div><div class="video-item"><span class="titulo-video">AULA3 - Entendendo o NPM</span><span class="canal">YouTube · português</span><p class="desc">Pacotes, dependências e package.json: como instalar e gerenciar.</p><a href="https://www.youtube.com/watch?v=T5Ot1BvdUWk">youtube.com/watch?v=T5Ot1BvdUWk</a></div><div class="video-item"><span class="titulo-video">npm Local vs Global Packages</span><span class="canal">YouTube · inglês</span><p class="desc">Diferença entre pacotes locais e globais — o tema da instalação global × local.</p><a href="https://www.youtube.com/watch?v=uExe6b_9UDs">youtube.com/watch?v=uExe6b_9UDs</a></div><div class="video-item"><span class="titulo-video">Node.js Tutorial for Beginners 19 - Installing npm packages globally + install nodemon</span><span class="canal">YouTube · inglês</span><p class="desc">Instalação global usando o nodemon, o mesmo exemplo do Ex2.</p><a href="https://www.youtube.com/watch?v=z_TIdpRN2b0">youtube.com/watch?v=z_TIdpRN2b0</a></div><div class="video-item"><span class="titulo-video">NPM and NPX</span><span class="canal">YouTube · inglês</span><p class="desc">Diferença entre npm e npx.</p><a href="https://www.youtube.com/watch?v=wiZAoa0AvYc">youtube.com/watch?v=wiZAoa0AvYc</a></div><div class="video-item"><span class="titulo-video">Package JSON Demystified - Dependencies and DevDependencies</span><span class="canal">YouTube · inglês</span><p class="desc">dependencies × devDependencies.</p><a href="https://www.youtube.com/watch?v=fbcMoP8C3tc">youtube.com/watch?v=fbcMoP8C3tc</a></div><div class="video-item"><span class="titulo-video">Master npm Scripts in package.json: Automate Your Node.js Workflow!</span><span class="canal">YouTube · inglês</span><p class="desc">Scripts do package.json (start, dev).</p><a href="https://www.youtube.com/watch?v=PSnpflBtO5c">youtube.com/watch?v=PSnpflBtO5c</a></div><h3 class="dia">15/10 — Módulos: CommonJS × ESM</h3><div class="video-item"><span class="titulo-video">CommonJS x ESModules: Tudo que você precisa saber!</span><span class="canal">YouTube · português</span><p class="desc">Aula que explica as diferenças entre os dois padrões de módulos.</p><a href="https://www.youtube.com/watch?v=IDL-AL17hj4">youtube.com/watch?v=IDL-AL17hj4</a></div><div class="video-item"><span class="titulo-video">#13 - CommonJS ou Module em um projeto com NodeJS?</span><span class="canal">YouTube · português</span><p class="desc">Qual formato escolher em um projeto Node.</p><a href="https://www.youtube.com/watch?v=d4cVGtyfcqI">youtube.com/watch?v=d4cVGtyfcqI</a></div><div class="video-item"><span class="titulo-video">Curso Node JS Completo: Aula 04 - Import e Export (Padrão ES Module)</span><span class="canal">YouTube · português</span><p class="desc">Import e export no padrão ES Module (vídeo com alguns anos: confira detalhes de versão).</p><a href="https://www.youtube.com/watch?v=nsFtplp3J40">youtube.com/watch?v=nsFtplp3J40</a></div><div class="video-item"><span class="titulo-video">Curso de Node.js - Módulos #04</span><span class="canal">YouTube · português</span><p class="desc">Dividir a lógica da aplicação em módulos.</p><a href="https://www.youtube.com/watch?v=bWSkUscBeZc">youtube.com/watch?v=bWSkUscBeZc</a></div><div class="video-item"><span class="titulo-video">Node.js Tutorial - 06: Modules in Node.js (CommonJS and ES Modules)</span><span class="canal">YouTube · inglês</span><p class="desc">CommonJS e ES Modules na mesma aula.</p><a href="https://www.youtube.com/watch?v=qXCGwDIOTJs">youtube.com/watch?v=qXCGwDIOTJs</a></div><div class="video-item"><span class="titulo-video">ESM vs CommonJS in your Node Projects</span><span class="canal">YouTube · inglês</span><p class="desc">Comparação e como escolher em um projeto.</p><a href="https://www.youtube.com/watch?v=I3DrifH-rJE">youtube.com/watch?v=I3DrifH-rJE</a></div><div class="video-item"><span class="titulo-video">Node.js + ESM + Commonjs: how can I make it work?</span><span class="canal">YouTube · inglês</span><p class="desc">Como fazer os dois sistemas conviverem (interop) — ligação com o caso do chalk.</p><a href="https://www.youtube.com/watch?v=MCslD_9TJWk">youtube.com/watch?v=MCslD_9TJWk</a></div><h3 class="dia">16/10 — Depuração e debugger no VS Code</h3><div class="video-item"><span class="titulo-video">Visual Studio Code: Depuração de Código</span><span class="canal">YouTube · português</span><p class="desc">Depuração no VS Code: breakpoints e execução passo a passo.</p><a href="https://www.youtube.com/watch?v=U325ud1fNFU">youtube.com/watch?v=U325ud1fNFU</a></div><div class="video-item"><span class="titulo-video">Depurar JavaScript usando o Visual Studio Code</span><span class="canal">YouTube · português</span><p class="desc">Depuração de JavaScript no VS Code.</p><a href="https://www.youtube.com/watch?v=j666Yl5Lun4">youtube.com/watch?v=j666Yl5Lun4</a></div><div class="video-item"><span class="titulo-video">Como fazer debug de Node e React no VS Code</span><span class="canal">YouTube · português</span><p class="desc">Debug de Node (e, de brinde, React — assunto do Módulo 2).</p><a href="https://www.youtube.com/watch?v=LX-kstxcWbI">youtube.com/watch?v=LX-kstxcWbI</a></div><div class="video-item"><span class="titulo-video">Using the JavaScript Debug Terminal to debug your apps</span><span class="canal">YouTube · inglês</span><p class="desc">O JavaScript Debug Terminal (Plano A da sexta).</p><a href="https://www.youtube.com/watch?v=Ql5JJGNb91s">youtube.com/watch?v=Ql5JJGNb91s</a></div><div class="video-item"><span class="titulo-video">How to debug Node.js in Visual Studio Code</span><span class="canal">YouTube · inglês</span><p class="desc">Passo a passo de depuração de Node no VS Code.</p><a href="https://www.youtube.com/watch?v=4UGyzRo8Dsk">youtube.com/watch?v=4UGyzRo8Dsk</a></div><div class="video-item"><span class="titulo-video">Debugging Node in VSCode is so easy!</span><span class="canal">YouTube · inglês</span><p class="desc">Visão rápida dos recursos do debugger.</p><a href="https://www.youtube.com/watch?v=uQ7xpHyCBXI">youtube.com/watch?v=uQ7xpHyCBXI</a></div><h2 class="section pagebreak">6. Leituras de apoio</h2><div class="atencao"><span class="titulo">Importante</span>Leituras localizadas por busca na web em 08/10/2026 e conferidas pelo título e descrição; confira antes de indicar à turma.</div><ul><li><a href="https://www.digitalocean.com/community/tutorials/how-to-use-node-js-modules-with-npm-and-package-json-pt">Como usar módulos do Node.js com npm e package.json</a> (DigitalOcean, português)</li><li><a href="https://www.freecodecamp.org/portuguese/news/como-comecar-com-o-node-js-guia-para-iniciantes-em-node/">Como começar com o Node.js — guia para iniciantes</a> (freeCodeCamp, português)</li><li><a href="https://www.hostinger.com/pt/tutoriais/o-que-e-npm">O que é NPM? Introdução básica ao Node Package Manager</a> (Hostinger, português)</li><li><a href="https://blog.logrocket.com/commonjs-vs-es-modules-node-js">CommonJS vs ES Modules in Node.js</a> (LogRocket, inglês)</li><li><a href="https://reflectoring.io/nodejs-modules-imports/">CommonJS vs. ES Modules: Modules and Imports in NodeJS</a> (reflectoring.io, inglês)</li><li><a href="https://blog.openreplay.com/pt/debugar-vs-code-tools/">Debugar com VS Code: ferramentas</a> (OpenReplay, português)</li><li><a href="https://code.visualstudio.com/docs/editor/debugging">Debug code with Visual Studio Code</a> (documentação oficial, inglês)</li></ul><div class="dica"><span class="titulo">Como usar este material</span>Leia ANTES da aula para chegar com uma primeira impressão, ou DEPOIS para reforçar um ponto. O conteúdo oficial e completo da semana está nos slides e no Guia do Professor.</div>
+
+  <footer>
+    Desenvolvimento Front-End [React] T4 — SENAI/SC — Material de apoio, Semana 12<br>
+    Professor Lisandro Faria Pinheiro
+  </footer>
+
+</div>
+</body>
+</html>

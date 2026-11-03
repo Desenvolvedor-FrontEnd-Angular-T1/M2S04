@@ -1,0 +1,74 @@
+[
+  {
+    "id": 1,
+    "titulo": "JavaScript para Iniciantes",
+    "autor": "Ana Souza",
+    "categoria": "Programação",
+    "paginas": 280,
+    "disponivel": true,
+    "imagem": "https://picsum.photos/seed/livro1/300/180"
+  },
+  {
+    "id": 2,
+    "titulo": "CSS Moderno",
+    "autor": "Carlos Lima",
+    "categoria": "Design",
+    "paginas": 190,
+    "disponivel": true,
+    "imagem": "https://picsum.photos/seed/livro2/300/180"
+  },
+  {
+    "id": 3,
+    "titulo": "HTML Semântico",
+    "autor": "Fernanda Rocha",
+    "categoria": "Programação",
+    "paginas": 150,
+    "disponivel": false,
+    "imagem": "https://picsum.photos/seed/livro3/300/180"
+  },
+  {
+    "id": 4,
+    "titulo": "Lógica de Programação",
+    "autor": "Marcos Silva",
+    "categoria": "Programação",
+    "paginas": 320,
+    "disponivel": true,
+    "imagem": "https://picsum.photos/seed/livro4/300/180"
+  },
+  {
+    "id": 5,
+    "titulo": "Banco de Dados na Prática",
+    "autor": "Juliana Costa",
+    "categoria": "Banco de Dados",
+    "paginas": 410,
+    "disponivel": true,
+    "imagem": "https://picsum.photos/seed/livro5/300/180"
+  },
+  {
+    "id": 6,
+    "titulo": "UX para Devs",
+    "autor": "Lucas Pereira",
+    "categoria": "Design",
+    "paginas": 230,
+    "disponivel": false,
+    "imagem": "https://picsum.photos/seed/livro6/300/180"
+  },
+  {
+    "id": 7,
+    "titulo": "Node.js na Prática",
+    "autor": "Eduardo Martins",
+    "categoria": "Programação",
+    "paginas": 360,
+    "disponivel": true,
+    "imagem": "https://picsum.photos/seed/livro7/300/180"
+  },
+  {
+    "id": 8,
+    "titulo": "Angular Completo",
+    "autor": "Roberta Santos",
+    "categoria": "Programação",
+    "paginas": 480,
+    "disponivel": true,
+    "imagem": "https://picsum.photos/seed/livro8/300/180"
+  }
+]

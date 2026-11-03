@@ -1,0 +1,2 @@
+.contador { padding: 8px 12px; border-radius: 6px; background: #eef7f2; display: inline-block; }
+.contador.vencido { background: #fdecea; color: #a83a32; font-weight: bold; }

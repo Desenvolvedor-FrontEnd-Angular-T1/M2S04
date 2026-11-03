@@ -1,0 +1,6 @@
+<!-- Os números vêm direto do service. Os métodos leem o signal; quando o App chama emprestar(), estes valores mudam sozinhos. -->
+<section class="resumo">
+  <div><strong>{{ service.total() }}</strong><span>livros</span></div>
+  <div><strong>{{ service.totalDisponiveis() }}</strong><span>disponíveis</span></div>
+  <div><strong>{{ service.totalEmprestados() }}</strong><span>emprestados</span></div>
+</section>

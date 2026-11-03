@@ -1,0 +1,39 @@
+<main class="pagina">
+  <h1>{{ titulo }}</h1>
+  <app-resumo-biblioteca />
+
+  <!-- Filtros: cada evento do navegador vira um next() em um Subject/BehaviorSubject no app.ts -->
+  <div class="filtros">
+    <label>Buscar: <input type="search" (input)="aoDigitar($event)" placeholder="Digite parte do título"></label>
+    <label>Categoria:
+      <select (change)="aoEscolherCategoria($event)">
+        @for (cat of categorias$ | async; track cat) {
+          <option [value]="cat">{{ cat }}</option>
+        }
+      </select>
+    </label>
+    <!-- quantidade é um SIGNAL (toSignal): lemos com parênteses, sem async -->
+    <span>{{ quantidade() }} resultado(s)</span>
+  </div>
+
+  <!-- Estado: carregando -->
+  @if (carregando()) {
+    <p>Carregando acervo...</p>
+  }
+  <!-- Estado: erro (com botão para tentar de novo) -->
+  @if (erro(); as mensagem) {
+    <p class="erro">{{ mensagem }} <button (click)="tentarNovamente()">Tentar novamente</button></p>
+  }
+
+  <section class="grade">
+    @for (livro of livrosFiltrados$ | async; track livro.id) {
+      <app-card-livro [livro]="livro" (emprestar)="emprestar($event)" (devolver)="devolver($event)" />
+    } @empty {
+      <!-- Só mostra "nenhum livro" se NÃO estiver carregando e não houver erro -->
+      @if (!carregando() && !erro()) {
+        <p>Nenhum livro encontrado com esses filtros.</p>
+      }
+    }
+  </section>
+  <app-toast />
+</main>

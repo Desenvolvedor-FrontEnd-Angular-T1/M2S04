@@ -1,0 +1,10 @@
+<main class="pagina">
+  <h1>{{ titulo }}</h1>
+  <app-resumo-biblioteca />
+  <section class="grade">
+    <!-- livros() com parênteses: lê o valor atual do signal. O Angular rastreia essa leitura. -->
+    @for (livro of livros(); track livro.id) {
+      <app-card-livro [livro]="livro" (emprestar)="emprestar($event)" (devolver)="devolver($event)" />
+    }
+  </section>
+</main>

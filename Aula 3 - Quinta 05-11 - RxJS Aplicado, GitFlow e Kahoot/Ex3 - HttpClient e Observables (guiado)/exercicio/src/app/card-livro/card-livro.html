@@ -1,0 +1,13 @@
+<!-- Em signals, lemos com parênteses: livro(). Por isso livro().titulo e não livro.titulo -->
+<article class="card" [class.indisponivel]="!livro().disponivel">
+  <img [src]="livro().imagem" [alt]="'Capa do livro ' + livro().titulo">
+  <h3>{{ livro().titulo }}</h3>
+  <p>{{ livro().autor }} · {{ livro().categoria }}</p>
+  <!-- status() é o computed definido na classe -->
+  <span class="selo">{{ status() }}</span>
+  @if (livro().disponivel) {
+    <button (click)="emprestar.emit(livro().id)">Emprestar</button>
+  } @else {
+    <button (click)="devolver.emit(livro().id)">Devolver</button>
+  }
+</article>

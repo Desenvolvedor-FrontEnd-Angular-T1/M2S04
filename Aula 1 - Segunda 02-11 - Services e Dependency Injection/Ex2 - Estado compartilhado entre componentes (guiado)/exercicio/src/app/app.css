@@ -1,0 +1,5 @@
+/* Estilos globais da página da biblioteca (arquivo app.css) */
+.pagina { max-width: 1000px; margin: 0 auto; padding: 24px; font-family: Arial, sans-serif; }
+.pagina h1 { color: #2e7d32; }
+/* grid responsivo: quantas colunas de 220px couberem na largura */
+.grade { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 16px; }
