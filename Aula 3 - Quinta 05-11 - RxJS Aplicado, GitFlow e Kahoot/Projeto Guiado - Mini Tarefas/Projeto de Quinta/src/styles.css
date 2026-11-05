@@ -1,0 +1,36 @@
+/* Estilos globais do Mini Tarefas (nada para os alunos fazerem aqui) */
+* { box-sizing: border-box; }
+body { margin: 0; font-family: system-ui, Arial, sans-serif; background: #f1f5f9; color: #0f172a; }
+.container { max-width: 640px; margin: 0 auto; padding: 24px 16px 80px; }
+
+header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
+h1 { margin: 0; font-size: 1.6rem; }
+
+button { cursor: pointer; border: 0; border-radius: 8px; padding: 8px 14px; background: #2563eb; color: #fff; font-size: .9rem; }
+button:hover { background: #1d4ed8; }
+input[type='text'], input[type='search'], select { padding: 8px 10px; border: 1px solid #cbd5e1; border-radius: 8px; font-size: .95rem; background: #fff; }
+
+.resumo { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; background: #fff; border-radius: 12px; padding: 16px; margin-bottom: 16px; text-align: center; }
+.resumo div strong { display: block; font-size: 1.6rem; }
+.resumo div span { font-size: .8rem; color: #64748b; }
+.resumo .barra { grid-column: 1 / -1; height: 10px; background: #e2e8f0; border-radius: 99px; overflow: hidden; }
+.resumo .barra-preenchida { height: 100%; background: #16a34a; transition: width .3s; }
+.resumo small { grid-column: 1 / -1; color: #64748b; }
+
+.formulario { display: flex; gap: 8px; margin-bottom: 16px; }
+.formulario input { flex: 1; }
+
+.filtros { display: flex; gap: 8px; margin-bottom: 12px; }
+.filtros app-campo-busca { flex: 1; display: flex; }
+.filtros input { flex: 1; }
+
+.card { display: flex; justify-content: space-between; align-items: center; background: #fff; border-radius: 10px; padding: 10px 14px; margin-bottom: 8px; box-shadow: 0 1px 2px #0001; }
+.card-corpo { display: flex; align-items: center; gap: 10px; }
+.card.concluida .titulo { text-decoration: line-through; color: #94a3b8; }
+.badge { font-size: .7rem; background: #e0e7ff; color: #3730a3; padding: 2px 8px; border-radius: 99px; }
+.btn-remover { background: #ef4444; padding: 4px 10px; }
+.btn-remover:hover { background: #dc2626; }
+
+.vazio, .aviso { text-align: center; color: #64748b; }
+.erro { background: #fee2e2; color: #991b1b; padding: 10px 14px; border-radius: 8px; display: flex; justify-content: space-between; align-items: center; }
+.toast { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); background: #16a34a; color: #fff; padding: 10px 20px; border-radius: 8px; box-shadow: 0 4px 12px #0003; }

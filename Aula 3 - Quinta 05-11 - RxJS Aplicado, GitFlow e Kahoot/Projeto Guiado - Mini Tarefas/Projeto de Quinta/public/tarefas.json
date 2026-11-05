@@ -1,0 +1,7 @@
+[
+  { "id": 1, "titulo": "Estudar Signals", "categoria": "Estudos", "concluida": true },
+  { "id": 2, "titulo": "Criar o TarefaService", "categoria": "Estudos", "concluida": false },
+  { "id": 3, "titulo": "Praticar RxJS (debounceTime)", "categoria": "Estudos", "concluida": false },
+  { "id": 4, "titulo": "Lavar a louça", "categoria": "Casa", "concluida": false },
+  { "id": 5, "titulo": "Enviar relatório da semana", "categoria": "Trabalho", "concluida": false }
+]

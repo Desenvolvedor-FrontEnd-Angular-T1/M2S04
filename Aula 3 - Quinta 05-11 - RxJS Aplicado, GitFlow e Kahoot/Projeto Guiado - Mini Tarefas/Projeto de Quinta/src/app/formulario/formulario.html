@@ -1,0 +1,17 @@
+<!-- ✅ PRONTO (não precisa mexer). A lógica está no formulario.ts -->
+<form class="formulario" (submit)="salvar($event)">
+  <input
+    type="text"
+    placeholder="Nova tarefa..."
+    [value]="titulo()"
+    (input)="titulo.set($any($event.target).value)"
+  />
+
+  <select (change)="categoria.set($any($event.target).value)">
+    @for (c of categorias; track c) {
+      <option [value]="c" [selected]="c === categoria()">{{ c }}</option>
+    }
+  </select>
+
+  <button type="submit">Adicionar</button>
+</form>

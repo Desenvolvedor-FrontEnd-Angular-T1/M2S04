@@ -1,0 +1,17 @@
+<!--
+  👉 TODO 4B (usar input e output no template):
+     • <article>: acrescente  [class.concluida]="tarefa().concluida"
+     • checkbox:  [checked]="tarefa().concluida"   e   (change)="alternar.emit(tarefa().id)"
+     • título:    troque "(título)" por   {{ tarefa().titulo }}
+     • badge:     troque "(categoria)" por {{ tarefa().categoria }}
+     • botão ✕:   (click)="remover.emit(tarefa().id)"
+     Lembre: input é signal → leia com ().  output → dispare com .emit()
+-->
+<article class="card">
+  <div class="card-corpo">
+    <input type="checkbox" />
+    <span class="titulo">(título)</span>
+    <span class="badge">(categoria)</span>
+  </div>
+  <button class="btn-remover">✕</button>
+</article>

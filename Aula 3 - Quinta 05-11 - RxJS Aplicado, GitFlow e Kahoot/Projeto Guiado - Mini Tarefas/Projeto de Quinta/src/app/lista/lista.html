@@ -1,0 +1,27 @@
+<section class="lista">
+  <div class="filtros">
+    <!--
+      👉 TODO 6F (two-way binding com model): coloque aqui o campo de busca ligado ao signal `busca`:
+         <app-campo-busca [(texto)]="busca" />
+    -->
+
+    <select (change)="escolherCategoria($any($event.target).value)">
+      @for (c of categorias; track c) {
+        <option [value]="c">{{ c }}</option>
+      }
+    </select>
+  </div>
+
+  <!--
+    👉 TODO 6G (async pipe + @for): troque o <p> abaixo por:
+       @if (tarefasFiltradas$ | async; as tarefas) {
+         @for (t of tarefas; track t.id) {
+           <app-card-tarefa [tarefa]="t" (alternar)="alternar($event)" (remover)="remover($event)" />
+         } @empty {
+           <p class="vazio">Nenhuma tarefa encontrada.</p>
+         }
+       }
+    O async pipe assina e cancela sozinho: nada de subscribe/unsubscribe manual.
+  -->
+  <p class="vazio">(a lista aparece aqui depois do TODO 6G)</p>
+</section>
