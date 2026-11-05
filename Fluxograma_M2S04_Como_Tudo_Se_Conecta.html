@@ -1,0 +1,587 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<title>Fluxograma M2S04 — Como tudo se conecta no Angular</title>
+<style>
+  @page { size: 1600px 1130px; margin: 0; }
+  :root { --blue:#2563eb; --green:#16a34a; --orange:#ea580c; --purple:#7c3aed; --teal:#0891b2; --gray:#475569; --pink:#db2777; --yellow:#ca8a04; }
+  * { box-sizing: border-box; margin: 0; padding: 0; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  body { font-family: 'Segoe UI', system-ui, Arial, sans-serif; background: #cbd5e1; color: #0f172a; }
+  .page { width: 1600px; height: 1130px; position: relative; background: #f8fafc; overflow: hidden; margin: 0 auto; border-bottom: 4px solid #94a3b8; break-after: page; page-break-after: always; }
+  .page:last-child { break-after: auto; page-break-after: auto; }
+  .hd { height: 92px; background: linear-gradient(90deg,#1e3a8a,#6d28d9); color: #fff; padding: 12px 32px; display: flex; justify-content: space-between; align-items: center; }
+  .hd h1 { font-size: 29px; }
+  .hd p { font-size: 15.5px; opacity: .92; margin-top: 4px; }
+  .hd .pg { font-size: 15px; background: #ffffff2e; padding: 6px 14px; border-radius: 99px; white-space: nowrap; }
+  .ft { position: absolute; bottom: 0; left: 0; right: 0; height: 38px; background: #e2e8f0; display: flex; gap: 20px; align-items: center; padding: 0 32px; font-size: 13px; color: #334155; }
+  .ft i { display: inline-block; width: 12px; height: 12px; border-radius: 3px; margin-right: 6px; vertical-align: -1px; }
+  code { overflow-wrap: anywhere; font-family: Consolas, 'Courier New', monospace; font-size: 14px; background: #0f172a12; padding: 1px 5px; border-radius: 5px; color: #0f172a; }
+
+  /* ---------- nós absolutos (página 1) ---------- */
+  .node { position: absolute; background: #fff; border: 2.5px solid var(--c); border-radius: 14px; padding: 8px 12px; font-size: 14px; line-height: 1.33; box-shadow: 0 2px 6px #0002; }
+  .node h3 { font-size: 16.5px; color: var(--c); margin-bottom: 3px; }
+  .lane { position: absolute; border: 2.5px dashed var(--c); border-radius: 20px; background: color-mix(in srgb, var(--c) 6%, white); }
+  .lane > b { position: absolute; top: 8px; left: 16px; font-size: 15px; color: var(--c); letter-spacing: .3px; }
+  .lane-a { position: absolute; font-size: 15px; font-weight: 700; color: #64748b; }
+  svg.ov { position: absolute; left: 0; top: 0; pointer-events: none; }
+  .chip { position: absolute; transform: translate(-50%,-50%); background: #fff; border: 2px solid var(--c); color: var(--c); font-size: 12.5px; font-weight: 700; padding: 3px 9px; border-radius: 99px; white-space: nowrap; box-shadow: 0 1px 3px #0002; }
+
+  /* ---------- páginas em fluxo (2–6) ---------- */
+  .body { position: absolute; top: 92px; bottom: 38px; left: 0; right: 0; padding: 18px 26px; display: flex; gap: 20px; }
+  .col { flex: 1; display: flex; flex-direction: column; gap: 14px; min-width: 0; }
+  .card { background: #fff; border: 3px solid var(--c); border-radius: 18px; padding: 14px 16px 14px; display: flex; flex-direction: column; gap: 13px; }
+  .card > h2 { background: var(--c); color: #fff; margin: -14px -16px 0; padding: 10px 16px; border-radius: 14px 14px 0 0; font-size: 22px; }
+  .card h4 { color: var(--c); font-size: 17.5px; margin-top: 4px; }
+  .grow { flex: 1; }
+  .n { background: color-mix(in srgb, var(--c) 7%, white); border: 2.5px solid var(--c); border-radius: 12px; padding: 9px 12px; font-size: 16px; line-height: 1.38; flex: 1; min-width: 0; display: block; overflow-wrap: anywhere; }
+  .n b.t { color: var(--c); font-size: 17px; display: block; margin-bottom: 2px; }
+  .n.solid { background: var(--c); color: #fff; border-color: var(--c); }
+  .n.solid b.t { color: #fff; }
+  .n.solid code { background: #ffffff30; color: #fff; }
+  .chain { display: flex; align-items: stretch; }
+  .chain.v { flex-direction: column; }
+  .arr { display: flex; flex-direction: column; align-items: center; justify-content: center; min-width: 66px; color: var(--c, #475569); font-weight: 800; text-align: center; padding: 0 3px; }
+  .arr small { font-size: 12.5px; line-height: 1.15; }
+  .arr b { font-size: 26px; line-height: 1; }
+  .chain.v .arr { min-width: 0; min-height: 40px; flex-direction: row; gap: 8px; }
+  .chain.v .arr b { font-size: 24px; }
+  .note { border-left: 6px solid var(--c); background: color-mix(in srgb, var(--c) 9%, white); border-radius: 8px; padding: 9px 14px; font-size: 15.2px; line-height: 1.4; }
+  .row { display: flex; gap: 12px; }
+  .two { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  table { border-collapse: collapse; width: 100%; font-size: 15px; }
+  th { background: var(--c); color: #fff; padding: 5px 8px; text-align: left; }
+  td { border: 1px solid #cbd5e1; padding: 7px 9px; vertical-align: top; }
+  .bad { --c: #dc2626; }
+  .ok { --c: #16a34a; }
+  .tag { display: inline-block; background: var(--c); color: #fff; font-size: 12px; font-weight: 800; padding: 2px 9px; border-radius: 99px; }
+  .q { background: #fffbeb; border: 2.5px solid var(--yellow); border-radius: 99px; padding: 6px 14px; font-weight: 700; font-size: 15px; display: flex; align-items: center; flex: 0 0 360px; }
+  .p4 .n { font-size: 14.6px; padding: 7px 11px; } .p4 .n b.t { font-size: 16px; } .p4 .note { font-size: 14px; padding: 6px 12px; } .p4 .chain.v .arr { min-height: 28px; } .p4 .card { gap: 9px; } .p4 table { font-size: 14px; } .p4 td { padding: 4px 8px; }
+  .p3 .rcol .n { font-size: 14.5px; padding: 6px 11px; } .p3 .rcol .n b.t { font-size: 15.5px; } .p3 .rcol .note { font-size: 14px; padding: 6px 12px; } .p3 .rcol .card { gap: 9px; } .p3 .rcol .chain.v .arr { min-height: 8px; }
+  .p6 .body { gap: 10px; } .p6 .card { gap: 8px; } .p6 .n { font-size: 14.5px; padding: 5px 10px; } .p6 .n b.t { font-size: 15.5px; margin-bottom: 1px; } .p6 .q { font-size: 14px; padding: 4px 12px; } .p6 .card > h2 { font-size: 19px; padding: 7px 16px; }
+</style>
+</head>
+<body>
+
+<!-- ===================================================================== -->
+<!-- PÁGINA 1 · VISÃO GERAL                                                -->
+<!-- ===================================================================== -->
+<section class="page">
+  <div class="hd">
+    <div><h1>① Visão geral · o ciclo de uma tela reativa em Angular</h1>
+      <p>Mini Tarefas: os dados entram → o Service guarda o estado → os componentes mostram → o usuário age → o Service atualiza → a tela muda sozinha</p></div>
+    <div class="pg">Página 1 de 6 · siga os números ①→⑧</div>
+  </div>
+
+  <!-- lanes -->
+  <div class="lane-a" style="left:30px;top:122px;">ENTRADAS E DADOS</div>
+  <div class="lane" style="--c:var(--blue);left:480px;top:122px;width:680px;height:938px;"><b>⚙️ TarefaService · @Service() · criado com ng g s · o “cérebro” do app</b></div>
+  <div class="lane" style="--c:var(--orange);left:1250px;top:122px;width:325px;height:938px;"><b>🧩 COMPONENTES · o “rosto”</b></div>
+
+  <!-- coluna A -->
+  <div class="node" style="--c:var(--pink);left:30px;top:150px;width:320px;height:130px;"><h3>👤 Usuário</h3>clica, digita na busca, marca ✔ e envia o formulário</div>
+  <div class="node" style="--c:var(--teal);left:30px;top:330px;width:320px;height:120px;"><h3>🌐 Servidor</h3><code>public/tarefas.json</code><br>a nossa “API” de exemplo</div>
+  <div class="node" style="--c:var(--gray);left:30px;top:800px;width:320px;height:120px;"><h3>💾 localStorage</h3>memória do navegador: as tarefas sobrevivem ao F5</div>
+
+  <!-- Service: coluna esquerda -->
+  <div class="node" style="--c:var(--teal);left:505px;top:190px;width:300px;height:140px;"><h3>📡 HttpClient · Observable</h3><code>http.get&lt;Tarefa[]&gt;()</code> devolve um <b>Observable</b>. <code>retry</code> · <code>catchError</code> · <code>finalize</code> tratam falha e “carregando”.</div>
+  <div class="node" style="--c:var(--green);left:505px;top:380px;width:300px;height:160px;"><h3>🟢 signal · tarefas</h3><code>signal&lt;Tarefa[]&gt;([])</code> é a <b>fonte única da verdade</b>. Também guarda <code>carregando</code> e <code>erro</code>.</div>
+  <div class="node" style="--c:var(--green);left:505px;top:600px;width:300px;height:130px;"><h3>🟢 computed</h3><code>total · concluidas · pendentes</code>: valores derivados que recalculam sozinhos.</div>
+  <div class="node" style="--c:var(--green);left:505px;top:790px;width:300px;height:130px;"><h3>🟢 effect</h3>roda quando <code>tarefas()</code> muda e <b>salva no localStorage</b>.</div>
+
+  <!-- Service: coluna direita -->
+  <div class="node" style="--c:var(--blue);left:860px;top:190px;width:280px;height:140px;"><h3>💉 Injeção de Dependência</h3><code>@Service()</code> cria <b>1 única instância</b> (singleton). Quem precisa, pede: <code>inject(TarefaService)</code></div>
+  <div class="node" style="--c:var(--blue);left:860px;top:380px;width:280px;height:160px;"><h3>🔵 Ações (métodos)</h3><code>adicionar · alternar · remover</code> usando <code>update(l =&gt; [...])</code>, sempre <b>imutável</b>.</div>
+  <div class="node" style="--c:var(--purple);left:860px;top:600px;width:280px;height:130px;"><h3>🟣 NotificacaoService</h3><code>Subject</code> (“rádio ao vivo”): <code>avisar(msg)</code> → <code>mensagem$</code></div>
+  <div class="node" style="--c:var(--yellow);left:860px;top:790px;width:280px;height:130px;"><h3>⚠️ Regra de ouro</h3>Nunca <code>push()</code> direto. Crie um array <b>novo</b>: assim signals e OnPush percebem a mudança.</div>
+
+  <!-- Coluna C: componentes -->
+  <div class="node" style="--c:var(--orange);left:1270px;top:168px;width:285px;height:84px;"><h3>App</h3><code>effect</code> → título da aba <code>(4) Mini Tarefas</code></div>
+  <div class="node" style="--c:var(--orange);left:1270px;top:260px;width:285px;height:84px;"><h3>Resumo</h3><code>computed percentual</code> + <code>total()</code> <code>pendentes()</code></div>
+  <div class="node" style="--c:var(--orange);left:1270px;top:352px;width:285px;height:84px;"><h3>Formulario</h3>digita e chama <code>service.adicionar()</code></div>
+  <div class="node" style="--c:var(--orange);left:1270px;top:444px;width:285px;height:84px;"><h3>Lista</h3><code>BehaviorSubject</code> + <code>combineLatest</code> + <code>| async</code></div>
+  <div class="node" style="--c:var(--orange);left:1270px;top:536px;width:285px;height:84px;"><h3>CardTarefa · CampoBusca</h3><code>input()</code> · <code>output()</code> · <code>model()</code></div>
+  <div class="node" style="--c:var(--purple);left:1270px;top:628px;width:285px;height:84px;"><h3>Toast</h3><code>mensagem$ | async</code> + <code>switchMap</code></div>
+  <div class="node" style="--c:var(--gray);left:1270px;top:790px;width:285px;height:105px;"><h3>🖥️ Template</h3><code>total()</code> · <code>@for</code> · <code>@if</code> · <code>| async</code> mostram os dados na tela</div>
+  <div class="node" style="--c:var(--pink);left:1270px;top:910px;width:285px;height:130px;"><h3>🔄 OnPush</h3>O componente só atualiza quando: um <b>input</b> muda, ocorre um <b>evento</b>, um <b>signal lido</b> muda ou o <b>async</b> emite.</div>
+
+  <!-- setas -->
+  <svg class="ov" width="1600" height="1130" viewBox="0 0 1600 1130">
+    <defs>
+      <marker id="a-blue" markerUnits="userSpaceOnUse" markerWidth="15" markerHeight="15" refX="12" refY="7.5" orient="auto"><path d="M0,0 L15,7.5 L0,15 z" fill="#2563eb"/></marker>
+      <marker id="a-green" markerUnits="userSpaceOnUse" markerWidth="15" markerHeight="15" refX="12" refY="7.5" orient="auto"><path d="M0,0 L15,7.5 L0,15 z" fill="#16a34a"/></marker>
+      <marker id="a-orange" markerUnits="userSpaceOnUse" markerWidth="15" markerHeight="15" refX="12" refY="7.5" orient="auto"><path d="M0,0 L15,7.5 L0,15 z" fill="#ea580c"/></marker>
+      <marker id="a-purple" markerUnits="userSpaceOnUse" markerWidth="15" markerHeight="15" refX="12" refY="7.5" orient="auto"><path d="M0,0 L15,7.5 L0,15 z" fill="#7c3aed"/></marker>
+      <marker id="a-teal" markerUnits="userSpaceOnUse" markerWidth="15" markerHeight="15" refX="12" refY="7.5" orient="auto"><path d="M0,0 L15,7.5 L0,15 z" fill="#0891b2"/></marker>
+      <marker id="a-gray" markerUnits="userSpaceOnUse" markerWidth="15" markerHeight="15" refX="12" refY="7.5" orient="auto"><path d="M0,0 L15,7.5 L0,15 z" fill="#475569"/></marker>
+      <marker id="a-pink" markerUnits="userSpaceOnUse" markerWidth="15" markerHeight="15" refX="12" refY="7.5" orient="auto"><path d="M0,0 L15,7.5 L0,15 z" fill="#db2777"/></marker>
+    </defs>
+    <g fill="none" stroke-width="3.5" stroke-linejoin="round">
+      <!-- ① servidor → HttpClient -->
+      <path d="M350 390 H430 V260 H505" stroke="#0891b2" marker-end="url(#a-teal)"/>
+      <!-- ② HttpClient → signal -->
+      <path d="M655 330 V380" stroke="#0891b2" marker-end="url(#a-teal)"/>
+      <!-- signal → computed -->
+      <path d="M620 540 V600" stroke="#16a34a" marker-end="url(#a-green)"/>
+      <!-- ⑦ signal → effect (pela esquerda) -->
+      <path d="M505 470 H492 V855 H505" stroke="#16a34a" marker-end="url(#a-green)"/>
+      <!-- effect → localStorage (salvar) -->
+      <path d="M505 890 H350" stroke="#475569" marker-end="url(#a-gray)"/>
+      <!-- localStorage → signal (ler ao iniciar) tracejado -->
+      <path d="M190 800 V740 H445 V510 H505" stroke="#475569" stroke-dasharray="9 7" marker-end="url(#a-gray)"/>
+      <!-- ⑥ ações → signal -->
+      <path d="M860 450 H805" stroke="#2563eb" marker-end="url(#a-blue)"/>
+      <!-- ações → notificação -->
+      <path d="M1000 540 V600" stroke="#7c3aed" marker-end="url(#a-purple)"/>
+      <!-- ③ service → componentes -->
+      <path d="M1140 300 H1250" stroke="#2563eb" marker-end="url(#a-blue)"/>
+      <!-- ⑤ componentes → ações -->
+      <path d="M1250 480 H1170 V410 H1140" stroke="#ea580c" marker-end="url(#a-orange)"/>
+      <!-- notificação → toast -->
+      <path d="M1140 680 H1250" stroke="#7c3aed" marker-end="url(#a-purple)"/>
+      <!-- ④ usuário → componentes -->
+      <path d="M190 150 V112 H1412 V122" stroke="#db2777" marker-end="url(#a-pink)"/>
+      <!-- ⑧ componentes → usuário -->
+      <path d="M1412 1060 V1078 H18 V215 H30" stroke="#db2777" marker-end="url(#a-pink)"/>
+    </g>
+  </svg>
+
+  <!-- rótulos das setas -->
+  <div class="chip" style="--c:#0891b2;left:430px;top:325px;">① GET</div>
+  <div class="chip" style="--c:#0891b2;left:738px;top:355px;">② subscribe → set(lista)</div>
+  <div class="chip" style="--c:#16a34a;left:560px;top:570px;">lê tarefas()</div>
+  <div class="chip" style="--c:#16a34a;left:492px;top:640px;transform:translate(-50%,-50%) rotate(-90deg);">⑦ recalcula</div>
+  <div class="chip" style="--c:#475569;left:420px;top:870px;">setItem (salva)</div>
+  <div class="chip" style="--c:#475569;left:320px;top:740px;">getItem (ao iniciar)</div>
+  <div class="chip" style="--c:#2563eb;left:832px;top:424px;">⑥</div>
+  <div class="chip" style="--c:#7c3aed;left:1072px;top:572px;">avisar(msg)</div>
+  <div class="chip" style="--c:#2563eb;left:1195px;top:272px;">③ inject()</div>
+  <div class="chip" style="--c:#2563eb;left:1195px;top:328px;">lê signals ( )</div>
+  <div class="chip" style="--c:#ea580c;left:1205px;top:520px;">⑤ chama métodos</div>
+  <div class="chip" style="--c:#7c3aed;left:1195px;top:652px;">mensagem$</div>
+  <div class="chip" style="--c:#db2777;left:800px;top:112px;">④ clique · digitação · submit</div>
+  <div class="chip" style="--c:#db2777;left:700px;top:1078px;">⑧ a tela atualiza sozinha: UI = f(estado)</div>
+
+  <div class="ft">
+    <span><i style="background:#2563eb"></i>Service / DI</span><span><i style="background:#16a34a"></i>Signals</span>
+    <span><i style="background:#ea580c"></i>Componentes</span><span><i style="background:#7c3aed"></i>RxJS (Subject)</span>
+    <span><i style="background:#0891b2"></i>HttpClient</span><span><i style="background:#475569"></i>Navegador</span>
+    <span style="margin-left:auto">Linha tracejada = leitura única na inicialização</span>
+  </div>
+</section>
+
+<!-- ===================================================================== -->
+<!-- PÁGINA 2 · SERVICES + DI + SIGNALS                                    -->
+<!-- ===================================================================== -->
+<section class="page">
+  <div class="hd">
+    <div><h1>② Services, Injeção de Dependência e Signals</h1>
+      <p>Onde o estado vive (Service), como os componentes chegam até ele (inject) e como a tela reage quando ele muda (signal · computed · effect)</p></div>
+    <div class="pg">Página 2 de 6</div>
+  </div>
+  <div class="body">
+    <!-- ESQUERDA -->
+    <div class="card col" style="--c:var(--blue);flex:1.05;">
+      <h2>🔵 Services e Injeção de Dependência</h2>
+
+      <h4>1 · Como criar e registrar</h4>
+      <div class="chain">
+        <div class="n"><b class="t">Gerar</b><code>ng g s services/tarefa-service</code>cria a classe do service</div>
+        <div class="arr"><small>decorator</small><b>➜</b></div>
+        <div class="n"><b class="t">Registrar</b><code>@Service()</code> (v22)<br><code>@Injectable({ providedIn: 'root' })</code> (v17)</div>
+        <div class="arr"><small>resultado</small><b>➜</b></div>
+        <div class="n solid"><b class="t">Singleton</b>1 instância compartilhada pelo app todo</div>
+      </div>
+
+      <h4>2 · Como o Angular entrega (Injeção de Dependência)</h4>
+      <div class="chain v">
+        <div class="chain">
+          <div class="n solid" style="flex:1.4"><b class="t">💉 Injector do Angular</b>guarda a instância única de <code>TarefaService</code> e entrega a quem pedir</div>
+          <div class="arr"><small>também usa</small><b>➜</b></div>
+          <div class="n" style="--c:var(--teal);"><b class="t">HttpClient</b><code>inject(HttpClient)</code><br><small>precisa de <code>provideHttpClient()</code></small></div>
+          <div class="arr" style="min-width:20px"></div>
+          <div class="n" style="--c:var(--purple);"><b class="t">NotificacaoService</b><code>inject(NotificacaoService)</code><br><small>service usando service</small></div>
+        </div>
+        <div class="arr" style="min-height:44px"><b>⬆</b><small style="font-size:13px"><code>inject(TarefaService)</code>: cada componente PEDE e recebe a MESMA instância</small></div>
+        <div class="chain" style="gap:8px">
+          <div class="n" style="--c:var(--orange);"><b class="t">App</b>effect do título</div>
+          <div class="n" style="--c:var(--orange);"><b class="t">Resumo</b>totais</div>
+          <div class="n" style="--c:var(--orange);"><b class="t">Formulario</b>adicionar</div>
+          <div class="n" style="--c:var(--orange);"><b class="t">Lista</b>filtros</div>
+        </div>
+      </div>
+
+      <h4>3 · Por que não usar <code>new</code>?</h4>
+      <div class="row">
+        <div class="n bad"><b class="t">❌ new TarefaService()</b>cada componente cria uma cópia: o Resumo mostra 5 e a Lista mostra 6 (dados divergem).</div>
+        <div class="n ok"><b class="t">✅ inject(TarefaService)</b>todos recebem a mesma instância: adicionou em um lugar, todos veem.</div>
+      </div>
+
+      <h4>4 · Providers: quem registra o que</h4>
+      <div class="chain">
+        <div class="n" style="--c:var(--blue);"><b class="t">app.config.ts</b><code>provideHttpClient()</code> habilita o <code>HttpClient</code> para o app inteiro</div>
+        <div class="arr"><small>sem ele</small><b>➜</b></div>
+        <div class="n bad"><b class="t">NullInjectorError</b>No provider for HttpClient</div>
+      </div>
+      <div class="note" style="--c:var(--blue)">💡 <b>Regra prática:</b> lógica ou dado usado por mais de um componente vai para um <b>Service</b>. Componente só mostra e dispara ações.</div>
+    </div>
+
+    <!-- DIREITA -->
+    <div class="card col" style="--c:var(--green);flex:.95;">
+      <h2>🟢 Signals: signal · computed · effect</h2>
+      <h4>O fluxo de dependência (exemplo real do projeto)</h4>
+      <div class="chain v">
+        <div class="n" style="--c:var(--green);"><b class="t">signal · fonte (você escreve)</b><code>tarefas = signal&lt;Tarefa[]&gt;([...5 tarefas])</code><br>troca com <code>set(valor)</code> ou <code>update(fn)</code>; lê com <code>tarefas()</code></div>
+        <div class="arr"><b>⬇</b><small>quem lê <code>tarefas()</code> passa a depender dele</small></div>
+        <div class="row">
+          <div class="n" style="--c:var(--green);"><b class="t">computed · derivado (só leitura)</b><code>total = 5</code><br><code>concluidas = 1</code><br><code>pendentes = 4</code><br><small>recalcula sozinho; guarda o resultado (cache)</small></div>
+          <div class="n" style="--c:var(--green);"><b class="t">effect · efeito colateral</b>① <code>localStorage.setItem(...)</code><br>② <code>document.title = '(4) Mini Tarefas'</code><br><small>não devolve valor; roda de novo quando o signal muda</small></div>
+        </div>
+        <div class="arr"><b>⬇</b><small>o template lê com parênteses</small></div>
+        <div class="n" style="--c:var(--gray);"><b class="t">Template</b><code>{{ service.total() }}</code> · <code>[style.width.%]="percentual()"</code><br>quando o signal muda, só o trecho afetado atualiza</div>
+      </div>
+
+      <h4>Quando uso cada um?</h4>
+      <table style="--c:var(--green)">
+        <tr><th>Preciso de…</th><th>Uso</th><th>No projeto</th></tr>
+        <tr><td>guardar um valor que muda</td><td><code>signal</code></td><td><code>tarefas</code>, <code>carregando</code>, <code>erro</code></td></tr>
+        <tr><td>calcular a partir de outros</td><td><code>computed</code></td><td><code>pendentes</code>, <code>percentual</code></td></tr>
+        <tr><td>fazer algo <b>fora</b> da tela</td><td><code>effect</code></td><td>localStorage, título da aba</td></tr>
+      </table>
+
+      <div class="row">
+        <div class="note" style="--c:var(--yellow);flex:1">⚠️ <b>Imutável:</b> use <code>update(l =&gt; [...l, nova])</code>. Um <code>push()</code> não avisa ninguém.</div>
+        <div class="note" style="--c:var(--pink);flex:1">⚠️ <b>Parênteses:</b> <code>service.total()</code> mostra o número. <code>service.total</code> mostra a função.</div>
+      </div>
+      <div class="note" style="--c:var(--green)">💡 Não use <code>effect</code> para calcular valores (use <code>computed</code>). O <code>effect</code> é para <b>sincronizar com o mundo de fora</b> (storage, título, log).</div>
+    </div>
+  </div>
+  <div class="ft"><span><i style="background:#2563eb"></i>Service / DI</span><span><i style="background:#16a34a"></i>Signals</span><span><i style="background:#ea580c"></i>Componentes</span><span><i style="background:#7c3aed"></i>RxJS</span><span><i style="background:#0891b2"></i>HttpClient</span></div>
+</section>
+
+<!-- ===================================================================== -->
+<!-- PÁGINA 3 · COMPONENTES                                                -->
+<!-- ===================================================================== -->
+<section class="page p3">
+  <div class="hd">
+    <div><h1>③ Componentes: pai ↔ filho, OnPush e template</h1>
+      <p>Como os componentes conversam entre si (input · output · model) e quando o Angular decide atualizar a tela (OnPush)</p></div>
+    <div class="pg">Página 3 de 6</div>
+  </div>
+  <div class="body">
+    <div class="card col" style="--c:var(--orange);flex:1.1;">
+      <h2>🟠 input · output · model: a conversa entre pai e filho</h2>
+
+      <h4>① Pai ➜ Filho · <code>input()</code> (o pai manda um dado)</h4>
+      <div class="chain">
+        <div class="n"><b class="t">Lista (pai)</b><code>&lt;app-card-tarefa [tarefa]="t" /&gt;</code></div>
+        <div class="arr"><small>dado desce</small><b>➜</b></div>
+        <div class="n"><b class="t">CardTarefa (filho)</b><code>tarefa = input.required&lt;Tarefa&gt;()</code><br>no template: <code>tarefa().titulo</code></div>
+      </div>
+
+      <h4>② Filho ➜ Pai · <code>output()</code> (o filho avisa que algo aconteceu)</h4>
+      <div class="chain">
+        <div class="n"><b class="t">CardTarefa (filho)</b><code>alternar = output&lt;number&gt;()</code><br>no clique: <code>alternar.emit(tarefa().id)</code></div>
+        <div class="arr"><small>evento sobe</small><b>➜</b></div>
+        <div class="n"><b class="t">Lista (pai)</b><code>(alternar)="alternar($event)"</code><br>o pai decide o que fazer com o <code>id</code></div>
+      </div>
+
+      <h4>③ Pai ⇄ Filho · <code>model()</code> (ida e volta = input + output)</h4>
+      <div class="chain">
+        <div class="n"><b class="t">Lista (pai)</b><code>&lt;app-campo-busca [(texto)]="busca" /&gt;</code><br><code>busca = signal('')</code></div>
+        <div class="arr"><small>⇄ two-way</small><b>⇄</b></div>
+        <div class="n"><b class="t">CampoBusca (filho)</b><code>texto = model('')</code><br>digitou: <code>texto.set(valor)</code> e o pai já recebe</div>
+      </div>
+
+      <h4>④ E depois? A ação chega ao Service e a tela atualiza</h4>
+      <div class="chain">
+        <div class="n"><b class="t">Lista.alternar(id)</b></div>
+        <div class="arr"><b>➜</b></div>
+        <div class="n" style="--c:var(--blue)"><b class="t">service.alternar(id)</b><code>update(...)</code></div>
+        <div class="arr"><b>➜</b></div>
+        <div class="n" style="--c:var(--green)"><b class="t">signal muda</b>computed e effect recalculam</div>
+        <div class="arr"><b>➜</b></div>
+        <div class="n" style="--c:var(--gray)"><b class="t">Tela</b>card e resumo atualizam</div>
+      </div>
+
+      <table style="--c:var(--orange)">
+        <tr><th>API</th><th>Direção</th><th>Como ler / usar</th><th>Pense como…</th></tr>
+        <tr><td><code>input()</code></td><td>pai ➜ filho</td><td><code>tarefa()</code> (só leitura)</td><td>parâmetro de função</td></tr>
+        <tr><td><code>output()</code></td><td>filho ➜ pai</td><td><code>.emit(valor)</code></td><td>callback / evento</td></tr>
+        <tr><td><code>model()</code></td><td>pai ⇄ filho</td><td><code>texto()</code> e <code>texto.set(v)</code></td><td>input + output juntos</td></tr>
+      </table>
+      <div class="note" style="--c:var(--orange)">💡 O <b>CardTarefa não conhece o service</b>: é um componente “burro” (só mostra e avisa), por isso é fácil de reutilizar e testar. Quem conversa com o Service é o pai (<code>Lista</code>).</div>
+    </div>
+
+    <div class="col rcol" style="flex:.9;">
+      <div class="card" style="--c:var(--pink);">
+        <h2>🔄 OnPush: quando o Angular atualiza um componente?</h2>
+        <div class="chain v">
+          <div class="n"><b class="t">Algo aconteceu na aplicação</b>clique, resposta HTTP, timer, digitação…</div>
+          <div class="arr"><b>⬇</b></div>
+          <div class="n" style="--c:var(--yellow);text-align:center"><b class="t">❓ O componente é OnPush?</b></div>
+        </div>
+        <div class="row">
+          <div class="n bad"><b class="t">Default (Angular ≤ 21)</b>verifica <b>todos</b> os componentes sempre. Simples, porém mais lento.</div>
+          <div class="n ok"><b class="t">OnPush (padrão no v22)</b>verifica o componente <b>só se</b>:<br>① um <code>input</code> mudou (nova referência)<br>② evento do próprio template<br>③ um <code>signal</code> lido nele mudou<br>④ o <code>async</code> pipe emitiu</div>
+        </div>
+        <div class="note" style="--c:var(--pink)">🔑 <b>Por isso trabalhamos assim:</b> estado em <b>signals</b>, dados <b>imutáveis</b> (<code>update</code> com array novo) e Observables com <b>async pipe</b>. Com isso o OnPush “enxerga” tudo.</div>
+        <div class="note" style="--c:var(--yellow)">⚠️ Alterar o array com <code>push()</code> mantém a mesma referência: o OnPush <b>não percebe</b> e a tela fica velha.</div>
+        <div class="note" style="--c:var(--gray)">No Angular 22, <b>zoneless</b> (sem zone.js) também é padrão. No projeto escrevemos <code>ChangeDetectionStrategy.OnPush</code> no CardTarefa e na Lista para fixar.</div>
+      </div>
+
+      <div class="card grow" style="--c:var(--gray);">
+        <h2>🖥️ Template: control flow moderno</h2>
+        <div class="chain v">
+          <div class="n"><b class="t"><code>@if</code> mostrar condicionalmente</b><code>@if (service.carregando()) { &lt;p&gt;Carregando...&lt;/p&gt; }</code></div>
+          <div class="arr" style="min-height:10px"></div>
+          <div class="n"><b class="t"><code>@for</code> repetir (com <code>track</code>)</b><code>@for (t of tarefas; track t.id) { &lt;app-card-tarefa … /&gt; }</code><br><small><code>track t.id</code> = chave única para o Angular reaproveitar os itens</small></div>
+          <div class="arr" style="min-height:10px"></div>
+          <div class="n"><b class="t"><code>@empty</code> lista vazia</b><code>@empty { &lt;p&gt;Nenhuma tarefa encontrada.&lt;/p&gt; }</code></div>
+        </div>
+        <div class="note" style="--c:var(--gray)"><code>@if (x | async; as v)</code>: o <b>async pipe</b> assina, guarda em <code>v</code> e cancela sozinho ao destruir o componente.</div>
+      </div>
+    </div>
+  </div>
+  <div class="ft"><span><i style="background:#2563eb"></i>Service / DI</span><span><i style="background:#16a34a"></i>Signals</span><span><i style="background:#ea580c"></i>Componentes</span><span><i style="background:#db2777"></i>Detecção de mudanças</span><span><i style="background:#475569"></i>Template</span></div>
+</section>
+
+<!-- ===================================================================== -->
+<!-- PÁGINA 4 · OBSERVABLES, SUBJECT, HTTP                                 -->
+<!-- ===================================================================== -->
+<section class="page p4">
+  <div class="hd">
+    <div><h1>④ Observables, Subject, BehaviorSubject e HttpClient</h1>
+      <p>Fluxos de dados ao longo do tempo: como o RxJS entra no projeto e qual “tipo” de fluxo usar em cada situação</p></div>
+    <div class="pg">Página 4 de 6</div>
+  </div>
+  <div class="body">
+    <div class="col" style="flex:1;">
+      <div class="card" style="--c:var(--purple);">
+        <h2>🟣 Observable: um fluxo de valores no tempo</h2>
+        <div class="chain">
+          <div class="n"><b class="t">Produtor</b>HTTP, evento, timer, <code>Subject</code></div>
+          <div class="arr"><small>.pipe()</small><b>➜</b></div>
+          <div class="n"><b class="t">Operadores</b><code>map</code> · <code>debounceTime</code> · <code>retry</code> …<br><small>transformam o fluxo</small></div>
+          <div class="arr"><small>assina</small><b>➜</b></div>
+          <div class="n"><b class="t">Consumidor</b><code>| async</code> (template) ou <code>.subscribe()</code></div>
+          <div class="arr"><b>➜</b></div>
+          <div class="n solid"><b class="t">Tela</b>valor exibido</div>
+        </div>
+        <svg width="100%" height="64" viewBox="0 0 700 64" preserveAspectRatio="xMinYMid meet">
+          <line x1="10" y1="32" x2="680" y2="32" stroke="#7c3aed" stroke-width="3"/><polygon points="690,32 676,24 676,40" fill="#7c3aed"/>
+          <circle cx="90" cy="32" r="15" fill="#c4b5fd" stroke="#7c3aed" stroke-width="2"/><text x="90" y="37" text-anchor="middle" font-size="14" font-weight="700">1</text>
+          <circle cx="230" cy="32" r="15" fill="#c4b5fd" stroke="#7c3aed" stroke-width="2"/><text x="230" y="37" text-anchor="middle" font-size="14" font-weight="700">2</text>
+          <circle cx="360" cy="32" r="15" fill="#c4b5fd" stroke="#7c3aed" stroke-width="2"/><text x="360" y="37" text-anchor="middle" font-size="14" font-weight="700">3</text>
+          <line x1="520" y1="14" x2="520" y2="50" stroke="#16a34a" stroke-width="5"/><text x="520" y="10" text-anchor="middle" font-size="12" fill="#16a34a" font-weight="700">complete ✔</text>
+          <text x="40" y="62" font-size="12" fill="#475569">valores emitidos ao longo do tempo (cada bolinha = um valor)</text>
+        </svg>
+        <div class="note" style="--c:var(--purple)">💡 Um Observable é <b>preguiçoso</b>: nada acontece até alguém assinar (<code>subscribe</code> ou <code>async</code>). Ele pode emitir 0, 1 ou vários valores, e pode terminar com <b>erro</b> ou <b>complete</b>.</div>
+      </div>
+
+      <div class="card grow" style="--c:var(--purple);">
+        <h2>🎙️ Subject × BehaviorSubject</h2>
+        <div class="row">
+          <div class="n"><b class="t">Subject = rádio ao vivo 📻</b>não guarda valor: quem entra depois <b>perde</b> o que já passou.<br><b>Uso:</b> eventos (aviso, toast).<br><b>No projeto:</b> <code>NotificacaoService</code></div>
+          <div class="n"><b class="t">BehaviorSubject = placar 🏟️</b>guarda o <b>último valor</b>: quem chega vê o resultado atual na hora.<br><b>Uso:</b> estado (categoria, tema).<br><b>No projeto:</b> <code>categoria$</code> na Lista</div>
+        </div>
+        <table style="--c:var(--purple)">
+          <tr><th></th><th>Subject</th><th>BehaviorSubject</th></tr>
+          <tr><td>valor inicial</td><td>não tem</td><td>obrigatório: <code>new BehaviorSubject('Todas')</code></td></tr>
+          <tr><td>emitir</td><td colspan="2"><code>.next(valor)</code> nos dois</td></tr>
+          <tr><td>expor para fora</td><td colspan="2"><code>.asObservable()</code>: os outros só leem, ninguém chama <code>next</code></td></tr>
+        </table>
+        <h4>Exemplo: o aviso verde (Toast)</h4>
+        <div class="chain">
+          <div class="n"><b class="t">avisar(msg)</b><code>subject.next(msg)</code></div>
+          <div class="arr"><b>➜</b></div>
+          <div class="n"><b class="t">mensagem$</b>Observable do Subject</div>
+          <div class="arr"><small>switchMap</small><b>➜</b></div>
+          <div class="n"><b class="t">timer(3000)</b>mostra a msg e some em 3 s</div>
+          <div class="arr"><small>| async</small><b>➜</b></div>
+          <div class="n solid"><b class="t">Toast</b>aviso verde</div>
+        </div>
+        <div class="note" style="--c:var(--purple)"><code>switchMap</code>: uma mensagem nova <b>cancela o timer da anterior</b>. Por isso o aviso nunca “pisca” nem some antes da hora.</div>
+      </div>
+    </div>
+
+    <div class="col" style="flex:1;">
+      <div class="card" style="--c:var(--teal);">
+        <h2>🌐 HttpClient: buscar dados e tratar os 3 estados</h2>
+        <div class="note" style="--c:var(--teal)">Antes você usava <code>fetch</code> + <code>await</code>. O <code>HttpClient</code> faz o mesmo, mas devolve um <b>Observable</b>: ganhamos <code>retry</code>, <code>catchError</code>, <code>delay</code>, <code>finalize</code> e cancelamento “de graça”.</div>
+        <div class="chain v">
+          <div class="n"><b class="t">1 · carregar()</b><code>carregando.set(true)</code> · <code>erro.set('')</code></div>
+          <div class="arr"><b>⬇</b></div>
+          <div class="n"><b class="t">2 · http.get&lt;Tarefa[]&gt;('tarefas.json')</b>devolve o Observable (ainda não executou!)</div>
+          <div class="arr"><b>⬇</b><small>.pipe( … )</small></div>
+          <div class="n"><b class="t">3 · delay(800)</b>atraso de mentira só para ver o “Carregando…”</div>
+          <div class="arr"><b>⬇</b></div>
+          <div class="n"><b class="t">4 · retry(2)</b>falhou? tenta de novo até 2 vezes (veja na aba Network)</div>
+          <div class="arr"><b>⬇</b></div>
+          <div class="n bad"><b class="t">5 · catchError(() =&gt; …)</b><code>erro.set('Não foi possível…')</code> e devolve <code>EMPTY</code> (termina sem valor)</div>
+          <div class="arr"><b>⬇</b></div>
+          <div class="n"><b class="t">6 · finalize(…)</b><code>carregando.set(false)</code>: roda em <b>sucesso OU erro</b></div>
+          <div class="arr"><b>⬇</b><small>.subscribe(lista =&gt; …)</small></div>
+          <div class="n solid"><b class="t">7 · tarefas.set(lista)</b>o signal muda e a tela atualiza</div>
+        </div>
+        <div class="row">
+          <div class="n" style="--c:var(--yellow)"><b class="t">⏳ Carregando</b><code>carregando()</code> = true</div>
+          <div class="n ok"><b class="t">✅ Sucesso</b>lista preenchida</div>
+          <div class="n bad"><b class="t">❌ Erro</b><code>erro()</code> + botão “Tentar novamente”</div>
+        </div>
+              </div>
+    </div>
+  </div>
+  <div class="ft"><span><i style="background:#7c3aed"></i>RxJS</span><span><i style="background:#0891b2"></i>HttpClient</span><span><i style="background:#16a34a"></i>Signals</span><span><i style="background:#2563eb"></i>Service</span></div>
+</section>
+
+<!-- ===================================================================== -->
+<!-- PÁGINA 5 · BUSCA REATIVA + PONTE                                      -->
+<!-- ===================================================================== -->
+<section class="page">
+  <div class="hd">
+    <div><h1>⑤ Busca reativa: onde Signals, RxJS e Template se encontram</h1>
+      <p>O pipeline da <code style="background:#ffffff30;color:#fff">Lista</code>: três fontes de dados viram uma lista filtrada, mostrada no template com async pipe</p></div>
+    <div class="pg">Página 5 de 6</div>
+  </div>
+  <div class="body" style="flex-direction:column;">
+    <div class="card" style="--c:var(--purple);">
+      <h2>🟣 tarefasFiltradas$ = combineLatest([ tarefas, busca, categoria ])</h2>
+      <div style="display:flex;align-items:stretch;gap:0;">
+        <!-- fontes -->
+        <div style="flex:1;display:flex;flex-direction:column;gap:10px;min-width:0;">
+          <div class="chain">
+            <div class="n" style="--c:var(--green)"><b class="t">Fonte 1 · tarefas</b><code>service.tarefas</code> (signal)</div>
+            <div class="arr"><small>toObservable</small><b>➜</b></div>
+            <div class="n"><b class="t">Observable</b>emite a lista a cada mudança</div>
+          </div>
+          <div class="chain" style="align-items:center">
+            <div class="n" style="--c:var(--pink)"><b class="t">Usuário digita</b><code>&lt;app-campo-busca&gt;</code></div>
+            <div class="arr"><small>[(texto)]</small><b>➜</b></div>
+            <div class="n" style="--c:var(--green)"><b class="t">signal busca</b><code>busca = signal('')</code></div>
+            <div class="arr"><small>toObservable</small><b>➜</b></div>
+            <div class="n"><b class="t">pipe de operadores</b><code>debounceTime(300)</code> espera parar de digitar<br><code>distinctUntilChanged()</code> ignora repetido<br><code>map(trim · lower)</code> padroniza<br><code>startWith('')</code> abre mostrando tudo</div>
+          </div>
+          <div class="chain">
+            <div class="n" style="--c:var(--pink)"><b class="t">Escolhe categoria</b><code>&lt;select (change)&gt;</code></div>
+            <div class="arr"><small>.next(valor)</small><b>➜</b></div>
+            <div class="n"><b class="t">Fonte 3 · categoria$</b><code>new BehaviorSubject('Todas')</code><br><small>guarda o valor atual (placar)</small></div>
+          </div>
+        </div>
+        <div class="arr" style="min-width:56px"><small>último valor<br>de cada</small><b>➜</b></div>
+        <!-- combineLatest -->
+        <div class="n solid" style="flex:0 0 190px;text-align:center;"><b class="t" style="font-size:17px">combineLatest</b>junta o <b>ÚLTIMO</b> valor de cada fonte e emite sempre que <b>qualquer uma</b> mudar<br><small style="color:#fff">só começa quando todas já emitiram uma vez</small></div>
+        <div class="arr" style="min-width:56px"><b>➜</b></div>
+        <!-- saída -->
+        <div class="chain v" style="flex:0 0 320px;">
+          <div class="n"><b class="t">map(([tarefas, texto, cat]) =&gt; …)</b><code>tarefas.filter(...)</code><br><small>categoria bate E título contém o texto</small></div>
+          <div class="arr"><b>⬇</b></div>
+          <div class="n"><b class="t">tarefasFiltradas$</b>Observable com a lista pronta</div>
+          <div class="arr"><b>⬇</b><small>| async</small></div>
+          <div class="n solid" style="--c:var(--gray)"><b class="t">@for → &lt;app-card-tarefa&gt;</b>cards na tela</div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="note" style="--c:var(--purple);flex:1">🔍 <b>Teste:</b> digite “rx” rápido: a lista só filtra ~300 ms <b>depois</b> que você para (sem <code>debounceTime</code> filtraria a cada tecla e, com HTTP real, dispararia dezenas de requisições).</div>
+        <div class="note" style="--c:var(--yellow);flex:1">❓ <b>Para pensar:</b> se remover o <code>startWith('')</code>, a lista fica vazia ao abrir, pois o <code>combineLatest</code> espera <b>todas</b> as fontes emitirem.</div>
+      </div>
+    </div>
+
+    <div class="card" style="--c:var(--green);">
+      <h2>🌉 A ponte entre Signals e RxJS</h2>
+      <div style="display:flex;gap:14px;align-items:stretch;">
+        <div class="chain" style="flex:1;">
+          <div class="n" style="--c:var(--green)"><b class="t">signal</b><code>busca()</code></div>
+          <div class="arr"><small><code>toObservable(signal)</code></small><b>➜</b></div>
+          <div class="n"><b class="t">Observable</b>agora aceita <code>debounceTime</code>, <code>combineLatest</code>…<br><small>use quando precisa de tempo e combinação</small></div>
+        </div>
+        <div class="chain" style="flex:1;">
+          <div class="n"><b class="t">Observable</b><code>http.get(…)</code>, <code>valor$</code></div>
+          <div class="arr"><small><code>toSignal(obs)</code></small><b>➜</b></div>
+          <div class="n" style="--c:var(--green)"><b class="t">signal</b>lê com <code>()</code>, serve em <code>computed</code>/<code>effect</code><br><small>precisa de <code>initialValue</code></small></div>
+        </div>
+      </div>
+      <table style="--c:var(--green)">
+        <tr><th>Situação</th><th>Prefira</th><th>Por quê</th></tr>
+        <tr><td>Mostrar um Observable no template</td><td><code>| async</code></td><td>assina e cancela sozinho; sem <code>subscribe</code> manual (evita vazamento de memória)</td></tr>
+        <tr><td>Usar o valor de um Observable em <code>computed</code>/<code>effect</code>/TS</td><td><code>toSignal()</code></td><td>vira signal: lê com <code>()</code> em qualquer lugar</td></tr>
+        <tr><td>Aplicar tempo/combinação num signal</td><td><code>toObservable()</code></td><td>entra no mundo do RxJS (debounce, combineLatest…)</td></tr>
+      </table>
+    </div>
+  </div>
+  <div class="ft"><span><i style="background:#7c3aed"></i>RxJS</span><span><i style="background:#16a34a"></i>Signals</span><span><i style="background:#db2777"></i>Ação do usuário</span><span><i style="background:#475569"></i>Template</span></div>
+</section>
+
+<!-- ===================================================================== -->
+<!-- PÁGINA 6 · DECISÃO + GITFLOW                                          -->
+<!-- ===================================================================== -->
+<section class="page p6">
+  <div class="hd">
+    <div><h1>⑥ Qual ferramenta uso? Guia de decisão + GitFlow</h1>
+      <p>Pergunte-se “o que eu preciso?” e siga a seta. Depois, como entregar o código com o fluxo colaborativo do GitHub</p></div>
+    <div class="pg">Página 6 de 6</div>
+  </div>
+  <div class="body" style="flex-direction:column;gap:12px;">
+    <div style="display:flex;gap:14px;">
+      <div class="card" style="--c:var(--blue);flex:1;">
+        <h2>🔵 Dados e lógica</h2>
+        <div class="chain"><div class="q" style="flex:1">Mais de um componente usa o mesmo dado ou regra?</div><div class="arr" style="min-width:44px"><b>➜</b></div><div class="n solid" style="--c:var(--blue)"><b class="t">Service + inject()</b><code>ng g s</code> · <code>@Service()</code></div></div>
+        <div class="chain"><div class="q" style="flex:1">Preciso de HTTP?</div><div class="arr" style="min-width:44px"><b>➜</b></div><div class="n solid" style="--c:var(--teal)"><b class="t">HttpClient</b><code>provideHttpClient()</code> + Observable</div></div>
+        <div class="chain"><div class="q" style="flex:1">Um service usa outro?</div><div class="arr" style="min-width:44px"><b>➜</b></div><div class="n solid" style="--c:var(--blue)"><b class="t">DI entre services</b><code>inject()</code> no service</div></div>
+      </div>
+      <div class="card" style="--c:var(--green);flex:1;">
+        <h2>🟢 Estado na tela</h2>
+        <div class="chain"><div class="q" style="flex:1">É um valor que muda e a tela mostra?</div><div class="arr" style="min-width:44px"><b>➜</b></div><div class="n solid" style="--c:var(--green)"><b class="t">signal</b><code>set</code> · <code>update</code></div></div>
+        <div class="chain"><div class="q" style="flex:1">É calculado a partir de outros valores?</div><div class="arr" style="min-width:44px"><b>➜</b></div><div class="n solid" style="--c:var(--green)"><b class="t">computed</b>só leitura, com cache</div></div>
+        <div class="chain"><div class="q" style="flex:1">Preciso agir fora da tela quando mudar?</div><div class="arr" style="min-width:44px"><b>➜</b></div><div class="n solid" style="--c:var(--green)"><b class="t">effect</b>storage, título, log</div></div>
+      </div>
+    </div>
+    <div style="display:flex;gap:14px;">
+      <div class="card" style="--c:var(--orange);flex:1;">
+        <h2>🟠 Comunicação entre componentes</h2>
+        <div class="chain"><div class="q" style="flex:1">O pai precisa mandar um dado ao filho?</div><div class="arr" style="min-width:44px"><b>➜</b></div><div class="n solid" style="--c:var(--orange)"><b class="t">input()</b><code>input.required&lt;T&gt;()</code></div></div>
+        <div class="chain"><div class="q" style="flex:1">O filho precisa avisar o pai?</div><div class="arr" style="min-width:44px"><b>➜</b></div><div class="n solid" style="--c:var(--orange)"><b class="t">output()</b><code>.emit(valor)</code></div></div>
+        <div class="chain"><div class="q" style="flex:1">Campo que vai e volta (pai ⇄ filho)?</div><div class="arr" style="min-width:44px"><b>➜</b></div><div class="n solid" style="--c:var(--orange)"><b class="t">model()</b><code>[(texto)]</code></div></div>
+        <div class="chain"><div class="q" style="flex:1">Quero evitar verificações à toa?</div><div class="arr" style="min-width:44px"><b>➜</b></div><div class="n solid" style="--c:var(--pink)"><b class="t">OnPush</b>+ signals + dados imutáveis</div></div>
+      </div>
+      <div class="card" style="--c:var(--purple);flex:1;">
+        <h2>🟣 Fluxos com RxJS</h2>
+        <div class="chain"><div class="q" style="flex:1">É um aviso/evento que não precisa de memória?</div><div class="arr" style="min-width:44px"><b>➜</b></div><div class="n solid" style="--c:var(--purple)"><b class="t">Subject</b><code>next</code> · <code>asObservable</code></div></div>
+        <div class="chain"><div class="q" style="flex:1">É um estado com valor atual?</div><div class="arr" style="min-width:44px"><b>➜</b></div><div class="n solid" style="--c:var(--purple)"><b class="t">BehaviorSubject</b>valor inicial</div></div>
+        <div class="chain"><div class="q" style="flex:1">Juntar várias fontes? Esperar parar de digitar?</div><div class="arr" style="min-width:44px"><b>➜</b></div><div class="n solid" style="--c:var(--purple)"><b class="t">combineLatest · debounceTime</b></div></div>
+        <div class="chain"><div class="q" style="flex:1">Nova emissão deve cancelar a anterior?</div><div class="arr" style="min-width:44px"><b>➜</b></div><div class="n solid" style="--c:var(--purple)"><b class="t">switchMap</b></div></div>
+        <div class="chain"><div class="q" style="flex:1">Mostrar Observable no template? Trocar signal ⇄ Observable?</div><div class="arr" style="min-width:44px"><b>➜</b></div><div class="n solid" style="--c:var(--purple)"><b class="t">| async · toSignal · toObservable</b></div></div>
+      </div>
+    </div>
+
+    <div class="card" style="--c:var(--gray);">
+      <h2>⚫ GitFlow colaborativo: do código ao Pull Request</h2>
+      <div class="chain">
+        <div class="n"><b class="t">1 · Partir da develop</b><code>git checkout develop</code><br><code>git pull</code></div>
+        <div class="arr"><b>➜</b></div>
+        <div class="n"><b class="t">2 · Criar a branch</b><code>git checkout -b feature/mini-tarefas</code></div>
+        <div class="arr"><b>➜</b></div>
+        <div class="n"><b class="t">3 · Commits pequenos</b><code>git add .</code><br><code>git commit -m "feat: ..."</code></div>
+        <div class="arr"><b>➜</b></div>
+        <div class="n"><b class="t">4 · Enviar</b><code>git push -u origin feature/mini-tarefas</code></div>
+        <div class="arr"><b>➜</b></div>
+        <div class="n"><b class="t">5 · Pull Request</b>abrir PR para <code>develop</code>, pedir revisão da dupla</div>
+        <div class="arr"><b>➜</b></div>
+        <div class="n solid" style="--c:var(--gray)"><b class="t">6 · Merge</b>aprovado: entra na <code>develop</code> (e depois na <code>main</code>)</div>
+      </div>
+    </div>
+    <div class="card" style="--c:var(--teal);">
+      <h2>📍 Onde cada tópico aparece no projeto Mini Tarefas</h2>
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;">
+        <div class="n" style="--c:var(--blue);font-size:13.5px"><b class="t" style="font-size:14.5px">Service + DI</b><code>tarefa-service.ts</code> · <code>inject()</code> em Resumo, Formulario, Lista, App</div>
+        <div class="n" style="--c:var(--green);font-size:13.5px"><b class="t" style="font-size:14.5px">signal · computed · effect</b>TarefaService · <code>percentual</code> (Resumo) · título da aba (App)</div>
+        <div class="n" style="--c:var(--orange);font-size:13.5px"><b class="t" style="font-size:14.5px">input · output · model · OnPush</b><code>card-tarefa</code> · <code>campo-busca</code> · <code>lista</code></div>
+        <div class="n" style="--c:var(--purple);font-size:13.5px"><b class="t" style="font-size:14.5px">BehaviorSubject · combineLatest · async</b><code>lista.ts</code> e <code>lista.html</code></div>
+      </div>
+    </div>
+  </div>
+  <div class="ft"><span><i style="background:#2563eb"></i>Service / DI</span><span><i style="background:#16a34a"></i>Signals</span><span><i style="background:#ea580c"></i>Componentes</span><span><i style="background:#7c3aed"></i>RxJS</span><span><i style="background:#0891b2"></i>HttpClient</span><span><i style="background:#475569"></i>Git</span></div>
+</section>
+
+</body>
+</html>
