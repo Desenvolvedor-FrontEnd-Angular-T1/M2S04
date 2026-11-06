@@ -1,17 +1,14 @@
 <!--
-  👉 TODO 4B (usar input e output no template):
-     • <article>: acrescente  [class.concluida]="tarefa().concluida"
-     • checkbox:  [checked]="tarefa().concluida"   e   (change)="alternar.emit(tarefa().id)"
-     • título:    troque "(título)" por   {{ tarefa().titulo }}
-     • badge:     troque "(categoria)" por {{ tarefa().categoria }}
-     • botão ✕:   (click)="remover.emit(tarefa().id)"
-     Lembre: input é signal → leia com ().  output → dispare com .emit()
+  ✅ PASSO 4B · SOLUÇÃO (usar input e output no template):
+  • input é signal → lemos com parênteses: tarefa().titulo
+  • output dispara com .emit(valor): o pai (Lista) recebe esse valor em (alternar) / (remover)
+  • [class.concluida] liga/desliga a classe CSS conforme a tarefa está concluída (risca o texto)
 -->
-<article class="card">
+<article class="card" [class.concluida]="tarefa().concluida">
   <div class="card-corpo">
-    <input type="checkbox" />
-    <span class="titulo">(título)</span>
-    <span class="badge">(categoria)</span>
+    <input type="checkbox" [checked]="tarefa().concluida" (change)="alternar.emit(tarefa().id)" />
+    <span class="titulo">{{ tarefa().titulo }}</span>
+    <span class="badge">{{ tarefa().categoria }}</span>
   </div>
-  <button class="btn-remover">✕</button>
+  <button class="btn-remover" (click)="remover.emit(tarefa().id)">✕</button>
 </article>

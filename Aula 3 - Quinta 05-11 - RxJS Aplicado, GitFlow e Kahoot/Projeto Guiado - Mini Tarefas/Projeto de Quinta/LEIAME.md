@@ -1,15 +1,17 @@
 # Projeto de Quinta — Mini Tarefas (guiado, ~1h)
 
-Um mini app de tarefas que junta **tudo da semana** em um só projeto. O projeto já vem **pronto e funcionando**: você só completa os trechos marcados com **`👉 TODO`**.
+Um mini app de tarefas que junta **tudo da semana** em um só projeto.
 
-## Como começar (3 comandos)
+> ✅ **Esta é a versão CONCLUÍDA.** Todos os passos (`TODO 1` a `TODO 8`) já estão resolvidos, e cada um tem um comentário **`✅ PASSO ... · SOLUÇÃO`** explicando o que foi feito e por quê. Use para conferir o seu projeto.
+
+## Como rodar (comandos)
 ```bash
 npm install
 ng serve
 ```
-Abra `http://localhost:4200`. Você verá a tela montada, mas **sem dados** (é normal: falta o service).
+Abra `http://localhost:4200`. Você verá as 5 tarefas, o resumo 5 / 4 / 1 e a aba do navegador mostrando `(4) Mini Tarefas`.
 
-> Dica: no VS Code use **Ctrl + Shift + F** e procure por `TODO` para ver todos os pontos de uma vez.
+> Dica: no VS Code use **Ctrl + Shift + F** e procure por `PASSO` ou `SOLUÇÃO` para ver todos os pontos de uma vez.
 
 ## O que cada tópico da semana vira neste projeto
 | Tópico | Onde aparece | TODO |
@@ -49,7 +51,7 @@ Abra `http://localhost:4200`. Você verá a tela montada, mas **sem dados** (é 
 ```bash
 ng g s services/tarefa-service
 ```
-Isso cria `src/app/services/tarefa-service.ts` com uma classe `TarefaService` quase vazia (`@Service() export class TarefaService {}`). Depois, abra o arquivo **`MODELO-tarefa-service.ts`** (na raiz do projeto), copie tudo e cole **no lugar** do conteúdo do arquivo gerado. Nele, o que já vem pronto serve de exemplo e os **`👉 TODO B, D, E, F1–F3, G1–G2`** são seus (cada um explica o que fazer).
+Isso cria `src/app/services/tarefa-service.ts` com uma classe `TarefaService` quase vazia (`@Service() export class TarefaService {}`). Nesta versão **concluída**, o arquivo `src/app/services/tarefa-service.ts` já está pronto, com cada solução explicada nos comentários `✅ TODO B, D, E, F1–F3, G1–G2`.
 > Digite o nome **completo** (`tarefa-service`). Se digitar só `tarefa`, o Angular cria `tarefa.ts` com a classe `Tarefa` e os imports não vão bater.
 Depois de colar, a importação nos componentes é:
 ```ts

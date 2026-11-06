@@ -1,11 +1,13 @@
-import { Component } from '@angular/core';
-// 👉 TODO 5-IMPORTS: acrescente `model` no import de cima
+// ✅ PASSO 5-IMPORTS · SOLUÇÃO: `model` vem do '@angular/core'.
+import { Component, model } from '@angular/core';
 
 @Component({
   selector: 'app-campo-busca',
   templateUrl: './campo-busca.html',
 })
 export class CampoBusca {
-  // 👉 TODO 5A (model): declare  readonly texto = model('');
-  //    `model` = input + output no mesmo membro → permite two-way binding  [( )]  no pai
+  // ✅ PASSO 5A · SOLUÇÃO (model): é input + output no MESMO membro. Permite two-way binding
+  // [(texto)] no pai: o pai manda o valor para cá e, quando fazemos texto.set(...), o pai já recebe
+  // o novo valor de volta, sem precisar escrever um output separado.
+  readonly texto = model('');
 }

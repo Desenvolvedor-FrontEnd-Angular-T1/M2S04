@@ -1,7 +1,11 @@
 <!--
-  👉 TODO 5B: no <input> acrescente
-     [value]="texto()"
-     (input)="texto.set($any($event.target).value)"
-  (ler = texto()   |   escrever = texto.set(valor))
+  ✅ PASSO 5B · SOLUÇÃO: ler = texto()  ·  escrever = texto.set(valor).
+  [value] mostra o valor atual do model; (input) grava o que o usuário digita de volta no model
+  (e, por ser model, o pai é avisado automaticamente).
 -->
-<input type="search" placeholder="Buscar tarefa..." />
+<input
+  type="search"
+  placeholder="Buscar tarefa..."
+  [value]="texto()"
+  (input)="texto.set($any($event.target).value)"
+/>

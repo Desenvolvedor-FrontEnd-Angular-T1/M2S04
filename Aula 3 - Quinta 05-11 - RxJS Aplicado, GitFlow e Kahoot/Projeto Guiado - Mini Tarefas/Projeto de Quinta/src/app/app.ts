@@ -1,10 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, effect, inject } from '@angular/core';
 import { Formulario } from './formulario/formulario';
 import { Lista } from './lista/lista';
 import { Resumo } from './resumo/resumo';
 import { Toast } from './toast/toast';
-// 👉 TODO 7-IMPORTS: acrescente `effect` e `inject` no import do '@angular/core'
-//    e importe o TarefaService (de './services/tarefa-service')
+// ✅ PASSO 7-IMPORTS · SOLUÇÃO: `effect` e `inject` do core, e o service gerado.
+import { TarefaService } from './services/tarefa-service';
 
 @Component({
   selector: 'app-root',
@@ -12,10 +12,15 @@ import { Toast } from './toast/toast';
   templateUrl: './app.html',
 })
 export class App {
-  // 👉 TODO 7A (DI): injete o TarefaService numa propriedade `protected readonly service`
+  // ✅ PASSO 7A · SOLUÇÃO (DI): `protected` para o app.html ler carregando(), erro() e carregar().
+  protected readonly service = inject(TarefaService);
 
   constructor() {
-    // 👉 TODO 7B (effect): crie um effect que roda sempre que as pendentes mudarem e atualiza a ABA do navegador:
-    //    effect(() => { document.title = `(${this.service.pendentes()}) Mini Tarefas`; });
+    // ✅ PASSO 7B · SOLUÇÃO (effect): efeito colateral FORA da tela. Lemos pendentes() dentro dele,
+    // então ele roda de novo sempre que esse valor mudar e atualiza o título da aba do navegador.
+    // Fica no constructor porque o effect precisa ser criado num "contexto de injeção".
+    effect(() => {
+      document.title = `(${this.service.pendentes()}) Mini Tarefas`;
+    });
   }
 }

@@ -2,26 +2,30 @@
   <header>
     <h1>Mini Tarefas</h1>
     <!--
-      👉 TODO 7C: coloque aqui um botão que chama o service:
-         <button (click)="service.carregar()">Recarregar do servidor</button>
+      ✅ PASSO 7C · SOLUÇÃO: botão que chama o método do service. (click) liga o clique ao carregar(),
+      que busca tarefas.json de novo (HttpClient + Observable).
     -->
+    <button (click)="service.carregar()">Recarregar do servidor</button>
   </header>
 
   <app-resumo />
   <app-formulario />
 
   <!--
-    👉 TODO 7D (estados da tela com signals do service): coloque aqui
-       @if (service.carregando()) {
-         <p class="aviso">Carregando tarefas...</p>
-       }
-       @if (service.erro()) {
-         <p class="erro">
-           {{ service.erro() }}
-           <button (click)="service.carregar()">Tentar novamente</button>
-         </p>
-       }
+    ✅ PASSO 7D · SOLUÇÃO (estados da tela com signals do service):
+    • carregando(): true enquanto a requisição acontece (finalize desliga no fim).
+    • erro(): texto de erro preenchido pelo catchError; vazio = sem erro (falsy), então não aparece.
+    O botão "Tentar novamente" chama carregar() outra vez.
   -->
+  @if (service.carregando()) {
+    <p class="aviso">Carregando tarefas...</p>
+  }
+  @if (service.erro()) {
+    <p class="erro">
+      {{ service.erro() }}
+      <button (click)="service.carregar()">Tentar novamente</button>
+    </p>
+  }
 
   <app-lista />
 </main>
